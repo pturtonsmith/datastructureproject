@@ -1,4 +1,3 @@
-
 import java.util.Date;
 
 /**
@@ -9,6 +8,7 @@ import java.util.Date;
 
 public class Meeting {
 	
+	//should change Date to int? what about date?
 	private Date startTime;
 	private Date endTime;
 	private String description;
