@@ -1,47 +1,51 @@
+
+import java.util.Date;
+
 /**
  * @author caoilainnmccrory, joelsieber, patrickturton-smith, lucascerha
  * 
  * @version v1.0
  */
+
 public class Meeting {
 	
-	private int startTime;
-	private int endTime;
+	private Date startTime;
+	private Date endTime;
 	private String description;
-	private String date;
+	private Date date;
 
+	/**
+	 * Default constructor. Initialises fields to default values.
+	 */
 	public Meeting() {
-		startTime = 0;
-		endTime = 0;
 		description = "";
-		date = "";
 	}
 
 	/**
 	 * @return the startTime
 	 */
-	public int getStartTime() {
+	public Date getStartTime() {
 		return startTime;
 	}
 
 	/**
 	 * @param startTime the startTime to set
 	 */
-	public void setStartTime(int startTime) {
+	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
 	}
 
 	/**
 	 * @return the endTime
 	 */
-	public int getEndTime() {
+	public Date getEndTime() {
 		return endTime;
 	}
 
 	/**
 	 * @param endTime the endTime to set
 	 */
-	public void setEndTime(int endTime) {
+	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
 
@@ -62,15 +66,14 @@ public class Meeting {
 	/**
 	 * @return the date
 	 */
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
 	/**
 	 * @param date the date to set
 	 */
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
-	
 }
