@@ -1,4 +1,4 @@
-import java.util.Date;
+import java.util.Calendar;
 
 /**
  * @author caoilainnmccrory, joelsieber, patrickturton-smith, lucascerha
@@ -8,11 +8,9 @@ import java.util.Date;
 
 public class Meeting {
 	
-	//should change Date to int? what about date?
-	private Date startTime;
-	private Date endTime;
+	private Calendar startTime;
+	private Calendar endTime;
 	private String description;
-	private Date date;
 
 	/**
 	 * Default constructor. Initialises fields to default values.
@@ -20,33 +18,16 @@ public class Meeting {
 	public Meeting() {
 		description = "";
 	}
-
-	/**
-	 * @return the startTime
-	 */
-	public Date getStartTime() {
-		return startTime;
+	
+	public Meeting(Calendar startTime, Calendar endTime, String description) {
+		setStartTime(startTime);
+		setEndTime(endTime);
+		setDescription(description);
 	}
-
-	/**
-	 * @param startTime the startTime to set
-	 */
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
-	}
-
-	/**
-	 * @return the endTime
-	 */
-	public Date getEndTime() {
-		return endTime;
-	}
-
-	/**
-	 * @param endTime the endTime to set
-	 */
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
+	
+	public void setDateTime(int year, int month, int date, int startHour, int startMinute, int endHour, int endMinute) {
+		startTime.set(year, month, date, startHour, startMinute);
+		endTime.set(year, month, date, endHour, endMinute);
 	}
 
 	/**
@@ -64,16 +45,31 @@ public class Meeting {
 	}
 
 	/**
-	 * @return the date
+	 * @return the startTime
 	 */
-	public Date getDate() {
-		return date;
+	public Calendar getStartTime() {
+		return startTime;
 	}
 
 	/**
-	 * @param date the date to set
+	 * @param startTime the startTime to set
 	 */
-	public void setDate(Date date) {
-		this.date = date;
+	public void setStartTime(Calendar startTime) {
+		this.startTime = startTime;
 	}
+
+	/**
+	 * @return the endTime
+	 */
+	public Calendar getEndTime() {
+		return endTime;
+	}
+
+	/**
+	 * @param endTime the endTime to set
+	 */
+	public void setEndTime(Calendar endTime) {
+		this.endTime = endTime;
+	}
+
 }
