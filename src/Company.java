@@ -24,9 +24,6 @@ public class Company {
 	 */
 	public Company() {
 		employees = new TreeMap<String, Employee>();
-		Calendar startTime;
-		startTime.set(year, month, date, hour, minute);
-		
 	}
 	
 	
