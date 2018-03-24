@@ -1,7 +1,7 @@
 import java.util.Calendar;
 
 /**
- * @author caoilainnmccrory, joelsieber, patrickturton-smith, lucascerha
+ * @author caoilainnmccrory, patrickturton-smith, joelsieber, lucascerha
  * 
  * @version v1.0
  */
@@ -13,21 +13,37 @@ public class Meeting {
 	private String description;
 
 	/**
-	 * Default constructor. Initialises fields to default values.
+	 * Default constructor. Initialises fields to default values
 	 */
 	public Meeting() {
 		description = "";
 	}
 	
+	/**
+	 * Alternative constructor. Sets fields to given values
+	 * @param startTime Start time to be set
+	 * @param endTime End time to be set 
+	 * @param description Description to be set
+	 */
 	public Meeting(Calendar startTime, Calendar endTime, String description) {
 		setStartTime(startTime);
 		setEndTime(endTime);
 		setDescription(description);
 	}
 	
-	public void setDateTime(int year, int month, int date, int startHour, int startMinute, int endHour, int endMinute) {
-		startTime.set(year, month, date, startHour, startMinute);
-		endTime.set(year, month, date, endHour, endMinute);
+	/**
+	 * Method to set date and time
+	 * @param year Year to be set
+	 * @param month Month to be set
+	 * @param day Day to be set
+	 * @param startHour Start hour to be set
+	 * @param startMinute Start minute to be set
+	 * @param endHour End hour to be set
+	 * @param endMinute End minute to be set
+	 */
+	public void setDateTime(int year, int month, int day, int startHour, int startMinute, int endHour, int endMinute) {
+		startTime.set(year, month, day, startHour, startMinute);
+		endTime.set(year, month, day, endHour, endMinute);
 	}
 
 	/**
