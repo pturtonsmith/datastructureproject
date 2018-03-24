@@ -1,10 +1,6 @@
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.LinkedList;
 import java.util.TreeMap;
 
 /**
@@ -16,44 +12,86 @@ import java.util.TreeMap;
 public class Company {
 	
 	
-	private TreeMap<String, Employee> employees = new TreeMap<String, Employee>();
+	
+	/** Private field treemap of employees in company */ private TreeMap<String, Employee> employees;
+	
 	
 	
 	/**
 	 * Default constructor for object of Company class. Creates a blank tree sorted by the string name of employee.
 	 */
 	public Company() {
-		employees = new TreeMap<String, Employee>();
+		
+		this.employees = new TreeMap<String, Employee>();
+		this.employees.addEmployees("Manager"); // Add owner to manage company
+	
 	}
 	
 	
+	
+	/**
+	 * Method to add employee to company's tree
+	 * @param toBeAdded new Employee to be added to tree
+	 */
 	public void addEmployee(Employee toBeAdded) {
 		if (employees.containsKey(toBeAdded.getName())) {
 			System.out.println("There is already an employees with this name, and cannot be added to the company.");
 			System.out.println("You'll just have to sack them.");
 		} else {
 			employees.put(toBeAdded.getName(), toBeAdded);
-		}	
+		}
 	}
 	
 	
-	public Employee deleteEmployee(String criteria) {
+	
+	/**
+	 * Method to remove employee from company's tree
+	 * @param criteria name of employee to remove
+	 * @return details of employee to be deleted (null if no such employee exists)
+	 */
+	public Employee deleteEmployee(String criteria) {	
 		Employee toBeDeleted = employees.remove(criteria);
 		return toBeDeleted;
 	}
 	
 	
+	
+	/**
+	 * Method for searching tree for an employees details
+	 * @param criteria name of employee to find
+	 * @return details of requested employee (null if no such employee exists)
+	 */
 	public Employee searchEmployee(String criteria) {
 		Employee found = employees.get(criteria);
 		return found;
 	}
 	
 	
-	public void searchDiaries(String[] criteria) {
+	
+	/**
+	 * Method for searching through multiple employees diaries to find a suitable time for a group meeting.
+	 * @param criteria the names of all the employees to plan for
+	 * @return the linked list of times that all the employees are free
+	 */
+	public LinkedList<Meeting> searchDiaries(String[] criteria) {
+		LinkedList<Meeting> all_meetings = new LinkedList<Meeting>();
+		
+		for (int num_employees = 0; num_employees < criteria.length; num_employees++) {
+			Employee current_employee = employees.get(criteria);
+			Iterator<Meeting> iter_meetings = current_employee.getDiary().getMeetings().keyIterator();
+			while (iter_meetings.hasNext()) {
+				all_meetings.add(iter_meetings.next());
+			}
+			all_meetings = mergeMeetings(all_meetings);
+		}
+		
+		return all_meetings;
+	}	
+		/**
 		Set<Date> time_free_all = new HashSet<Date>();
 		for (int num_employees = 0; num_employees < criteria.length; num_employees++) {
 			Employee current_employee = employees.get(criteria);
-			TreeMap<Calendar, Meeting> current_meetings = current_employee.getDiary().getTimesDay();
+			TreeMap<Calendar, Meeting> current_meetings = current_employee.getDiary().getTimesDay().keyIterator();
 			Set<Calendar> time_free_current = new HashSet<Calendar>();
 			Iterator<Calendar> iter_meetings = current_meetings.iterator();
 			while (iter_meetings.hasNext()) {
@@ -72,10 +110,10 @@ public class Company {
 		Iterator<Date> iter_free_time = time_free_all.iterator();
 		System.out.println("The employees are all free at these times:");
 		while(iter_free_time.hasNext()) {
-			System.out.print(iter_free_time.next().toGMTString() + ", ");
+			System.out.print(iter_free_time.next().toString() + ", ");
 		}
 		
-		/**
+		
 		for (int i = 0; i < criteria.length; i++) {
 			Employee current = employees.get(criteria);
 			TreeMap<Date, Meeting>  current_employee = current.getDiary().getMeetings();
@@ -100,21 +138,42 @@ public class Company {
 		while (iterate_times_day.hasNext()) {
 			System.out.print(iterate_times_day.next() + ":00, ");
 		}
-		**/
+		
 	}
+	**/
 	
 	
+	
+	/**
+	 * Method called from searchDiaries method to merge meetings where they either overlap or are next to each other in order to make determining free time easier.
+	 * @param list_meetings LinkedList containing the times of all the meetings found so far
+	 * @return list_meeting LinkedList the same list but condensed where possible
+	 */
+	private LinkedList<Meeting> mergeMeetings(LinkedList<Meeting> list_meetings) {
+		Iterator<Meeting> iter_meetings = list_meetings.iterator();
+		Meeting current = iter_meetings.next();
+		Meeting next;
+		
+		while (iter_meetings.hasNext()) {
+			next = iter_meetings.next(); 
+			
+			if (current.getEndTime().compareTo(next.getStartTime()) >= 0) {
+				if (current.getEndTime().compareTo(next.getEndTime()) < 0) {
+					current.setEndTime(next.getEndTime());
+				}
+				list_meetings.remove(next);
+			} else {
+				current = next;
+			}
+		
+		}
+		
+		return list_meetings;
+	}
+
+
 	public void iterator() {
 		return employees.iterator();
-	}
-	
-	
-	private Set<Integer> setTimesDay() {
-		Set<Integer> times_day = new HashSet<Integer>();
-		for (int i = 8; i < 24; i++) {
-			times_day.add(i);
-		}
-		return times_day;
 	}
 	
 	
