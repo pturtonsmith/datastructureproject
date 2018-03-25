@@ -1,9 +1,11 @@
 import java.util.TreeMap;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.Iterator;
 
 /**
- * @author caoilainnmccrory, patrickturton-smith, joelsieber, lucascerha
+ * @author Caoilainn McCrory, Patrick Turton-Smith, Joel Sieber, Lucas Cerha
  *
  */
 public class Diary {
@@ -18,7 +20,7 @@ public class Diary {
 	}
 	
 	/**
-	 * Method to create a meeting
+	 * Method that passes through date, start/end time, and description into createMeeting method
 	 * @param year Year of meeting
 	 * @param month Month of meeting
 	 * @param day Day of meeting
@@ -33,6 +35,17 @@ public class Diary {
 		startTime.set(year, month, day, startHour, startMinute);
 		Calendar endTime = Calendar.getInstance();
 		endTime.set(year, month, day, endHour, endMinute);
+		
+		createMeeting(startTime, endTime, description);
+	}
+	
+	/**
+	 * Method that creates meeting
+	 * @param startTime Start time of meeting
+	 * @param endTime End time of meeting
+	 * @param description Description of meeting
+	 */
+	public void createMeeting(Calendar startTime, Calendar endTime, String description) {
 		Meeting meetingToAdd = new Meeting(startTime, endTime, description);
 		diary.put(startTime, meetingToAdd);
 	}
@@ -58,6 +71,11 @@ public class Diary {
 		return found;
 	}
 	
+	/**
+	 * Method that saves meeting
+	 * @param outputStream Output stream for writing to file
+	 * @param printWriter PrintWriter to print meeting info to file
+	 */
 	public void saveMeeting(FileOutputStream outputStream, PrintWriter printWriter) {
         Iterator<Meeting> iter_meeting = this.diary.values().iterator();
         Meeting currentMeeting;
@@ -83,4 +101,5 @@ public class Diary {
 	public void setDiary(TreeMap<Calendar, Meeting> diary) {
 		this.diary = diary;
 	}
+
 }

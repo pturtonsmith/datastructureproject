@@ -1,7 +1,8 @@
+import java.util.Date;
 import java.util.Calendar;
 
 /**
- * @author caoilainnmccrory, patrickturton-smith, joelsieber, lucascerha
+ * @author Caoilainn McCrory, Patrick Turton-Smith, Joel Sieber, Lucas Cerha
  * 
  * @version v1.0
  */
@@ -29,6 +30,16 @@ public class Meeting {
 		setStartTime(startTime);
 		setEndTime(endTime);
 		setDescription(description);
+	}
+	
+	/**
+	 * Method to print meeting
+	 */
+	public void printMeeting() {
+		Date startTime = getStartTime().getTime();
+		Date endTime = getEndTime().getTime();
+		String description = getDescription();
+		System.out.print(startTime + "\n" + endTime + "\n" + description);
 	}
 	
 	/**
