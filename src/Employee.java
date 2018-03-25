@@ -1,3 +1,6 @@
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import java.util.Calendar;
 import java.util.Iterator;
 
 /**
@@ -24,10 +27,7 @@ public class Employee {
 		this.diary = new Diary();
 	}
 	
-	public void saveEmployee(FileOutputStream outputStream, PrintWriter printWriter) {
-		printWriter.println(this.name + ";");
-		diary.saveMeeting(outputStream, printWriter);
-	}
+	
 	
 	/**
 	 * Getter for employee's name
@@ -75,6 +75,18 @@ public class Employee {
 	
 	
 	
+	public void addToDiary(String start, String end, String description) {
+		long startLong = Long.parseLong(start);
+		Calendar startTime = Calendar.getInstance();
+		startTime.setTimeInMillis(startLong);
+		long endLong = Long.parseLong(end);
+		Calendar endTime = Calendar.getInstance();
+		endTime.setTimeInMillis(endLong); 
+		this.diary.createMeeting(startTime, endTime, description);
+	}
+	
+	
+	
 	public void printDiary() {
 		Iterator<Meeting> iter_meeting = this.diary.getDiary().values().iterator();
 		Meeting current_meeting;
@@ -82,6 +94,13 @@ public class Employee {
 			current_meeting = iter_meeting.next();
 			current_meeting.printMeeting();
 		}
+	}
+	
+	
+	
+	public void saveEmployee(FileOutputStream outputStream, PrintWriter printWriter) {
+		printWriter.print(this.name + ";");
+		this.diary.saveMeeting(outputStream, printWriter);
 	}
 	
 	
