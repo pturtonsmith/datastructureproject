@@ -57,6 +57,18 @@ public class Diary {
 		
 		return found;
 	}
+	
+	public void saveMeeting(FileOutputStream outputStream, PrintWriter printWriter) {
+        Iterator<Meeting> saveMeeting = this.diary.values().iterator();
+        Meeting currentMeeting;
+        
+        while(saveMeeting.hasNext()) {
+	    		currentMeeting = saveMeeting.next();
+	    		long startTime = currentMeeting.getStartTime().getTimeInMillis();
+	    		long endTime = currentMeeting.getEndTime().getTimeInMillis();
+	    		printWriter.println(currentMeeting.getDescription() + "|" + startTime + "|" + endTime);
+        }
+	}
 
 	/**
 	 * @return the diary
