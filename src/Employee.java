@@ -24,7 +24,10 @@ public class Employee {
 		this.diary = new Diary();
 	}
 	
-	
+	public void saveEmployee(FileOutputStream outputStream, PrintWriter printWriter) {
+		printWriter.println(this.name + ";");
+		diary.saveMeeting(outputStream, printWriter);
+	}
 	
 	/**
 	 * Getter for employee's name

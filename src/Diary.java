@@ -59,11 +59,11 @@ public class Diary {
 	}
 	
 	public void saveMeeting(FileOutputStream outputStream, PrintWriter printWriter) {
-        Iterator<Meeting> saveMeeting = this.diary.values().iterator();
+        Iterator<Meeting> iter_meeting = this.diary.values().iterator();
         Meeting currentMeeting;
         
-        while(saveMeeting.hasNext()) {
-	    		currentMeeting = saveMeeting.next();
+        while(iter_meeting.hasNext()) {
+	    		currentMeeting = iter_meeting.next();
 	    		long startTime = currentMeeting.getStartTime().getTimeInMillis();
 	    		long endTime = currentMeeting.getEndTime().getTimeInMillis();
 	    		printWriter.println(currentMeeting.getDescription() + "|" + startTime + "|" + endTime);

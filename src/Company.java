@@ -142,7 +142,21 @@ public class Company {
 	}
 	**/
 	
-	
+	public void saveFile() {
+		FileOutputStream outputStream;
+		PrintWriter printWriter;
+		String input;
+		Scanner scanner = new Scanner(System.in);
+		
+		Iterator<Employee> iter_employees;
+		Employee current = iter_employees.next();
+		String toSave;
+		
+		while(iter_meetings.hasNext()) {
+			current.saveEmployee(outputStream, printWriter);
+			printWriter.println();
+		}
+	}
 	
 	/**
 	 * Method called from searchDiaries method to merge meetings where they either overlap or are next to each other in order to make determining free time easier.
