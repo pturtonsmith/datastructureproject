@@ -15,8 +15,8 @@ public class Employee {
 	
 	/** Private field String name of employee */ private String name;
 	/** Private field Diary diary of meetings */ private Diary diary;
-	private Stack<Meeting> newStack;
-	private Stack<Integer> newStack2;
+	Stack<Meeting> newStack;
+	Stack<Integer> newStack2;
 
 	/**
 	 * Default constructor for objects of Diary class
@@ -25,14 +25,17 @@ public class Employee {
 	public Employee(String new_name) {
 		this.name = new_name;
 		this.diary = new Diary();
-		newStack = new Stack();
-		newStack2 = new Stack();
+		newStack = new Stack<Meeting>();
+		newStack2 = new Stack<Integer>();
 	}
+	
+	
 
 	/**
 	 * Method to print diary
 	 */
 	public void printDiary() {
+		System.out.println("Diary for " + this.name + " is as follows: ");
 		Iterator<Meeting> iter_meeting = this.diary.getDiary().values().iterator();
 		Meeting current_meeting;
 		while (iter_meeting.hasNext()) {
@@ -40,6 +43,8 @@ public class Employee {
 			current_meeting.printMeeting();
 		}
 	}
+	
+	
 	
 	/**
 	 * Method to add meeting to diary
@@ -64,8 +69,8 @@ public class Employee {
 	 * Method to delete from diary
 	 * @param criteria Start time of meeting to be deleted
 	 */
-	public void deleteFromDiary(Calendar criteria) {
-		Meeting meetingDeleted = this.diary.deleteMeeting(criteria);
+	public void deleteFromDiary(Meeting toBeDeleted) {
+		Meeting meetingDeleted = this.diary.deleteMeeting(toBeDeleted);
 		newStack2.push(2);
 		newStack.push(meetingDeleted);
 	}
@@ -88,7 +93,7 @@ public class Employee {
 	 */
 	public void undoAdd() {
 		Meeting meetingToDelete = newStack.pop();
-		this.diary.deleteMeeting(meetingToDelete.getStartTime());
+		this.diary.deleteMeeting(meetingToDelete);
 	}
 	
 	/**
@@ -104,7 +109,7 @@ public class Employee {
 	 */
 	public void undoEdit() {
 		Meeting undoEdit = newStack.pop();
-		this.diary.deleteMeeting(undoEdit.getStartTime());
+		this.diary.deleteMeeting(undoEdit);
 		Meeting undoEdit2 = newStack.pop();
 		this.diary.addMeeting(undoEdit2);
 	}
@@ -136,7 +141,14 @@ public class Employee {
 		printWriter.println(this.name + ";");
 		diary.saveMeeting(outputStream, printWriter);
 	}
-
+	
+	
+	public Meeting searchMeeting(Calendar criteria) {
+		return this.diary.getMeeting(criteria);
+		
+	}
+	
+	
 	/**
 	 * Getter for employee's name
 	 * @return name String name of employee
