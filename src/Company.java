@@ -12,7 +12,7 @@ import java.util.TreeMap;
 
 /**
  * Company class. Contains methods to maintain the Company, such as adding, removing and searching for employees. Also contains method to search selected employees diaries to find an appropriate time for a groupaa meeting.
- * @author Patrick Turton-Smith for Group 8 (Caoilainn McCrory, Joel Sieber, Lucas Cerha & Patrick Turton-Smith)
+ * @author Caoilainn McCrory, Patrick Turton-Smith, Joel Sieber, Lucas Cerha
  * @version 1.0
  */
 
@@ -127,7 +127,11 @@ public class Company {
 		return list_meetings;
 		
 	}
-
+	
+	/**
+	 * 
+	 * @return the iterator
+	 */
 	public Iterator<Employee> iterator() {
 		return this.employees.values().iterator();
 	}
