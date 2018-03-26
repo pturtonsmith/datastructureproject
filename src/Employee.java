@@ -7,7 +7,7 @@ import java.util.Stack;
 /**
  * 
  * Employee class.
- * @author Patrick Turton-Smith for Group 8 (Caoilainn McCrory, Joel Sieber, Lucas Cerha & Patrick Turton-Smith)
+ * @author Caoilainn McCrory, Joel Sieber, Lucas Cerha & Patrick Turton-Smith
  * @version 1.0
  */
 
@@ -149,7 +149,7 @@ public class Employee {
 	}
 	
 	/**
-	 * 
+	 * Save an employee's information
 	 * @param outputStream Output stream for writing to file
 	 * @param printWriter PrintWriter to print names to file
 	 */
