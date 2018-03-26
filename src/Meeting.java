@@ -3,7 +3,7 @@ import java.util.Calendar;
 
 /**
  * @author Caoilainn McCrory, Patrick Turton-Smith, Joel Sieber, Lucas Cerha
- * 
+ * Meeting class. Contains methods for printing and editing meetings, and getters and setters
  * @version v1.0
  */
 
