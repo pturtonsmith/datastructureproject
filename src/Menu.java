@@ -11,8 +11,7 @@ import java.util.Scanner;
 import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 
 /**
- * Menu class. Contains methods to create and display the menu to the user, process their menu choices, print their diary, search meetings, and read and save the file.
- * @author Caoilainn McCrory, Patrick Turton-Smith, Joel Sieber, Lucas Cerha
+ * @author joelsieber
  *
  */
 public class Menu {
@@ -21,27 +20,19 @@ public class Menu {
 	public Company company;
 	
 	
-	/**
-	 * creates a new company object
-	 */
+	
 	public Menu() {
 		this.company = new Company();
 	}
 	
 	
-	/**
-	 * 
-	 * @return company
-	 */
+	
 	public Company getCompany() {
 		return company;
 	}
 	
 	
-	/**
-	 * 
-	 * @param company
-	 */
+	
 	public void setCompany(Company company) {
 		this.company = company;
 	}
@@ -49,14 +40,13 @@ public class Menu {
 	
 	
 	/**
-	 * Main method.
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Menu myMenu = new Menu();
 		
-		myMenu.processUserChoices(); // run the menu
+		myMenu.processUserChoices();
 	}
 
 
@@ -95,7 +85,7 @@ public class Menu {
 		System.out.println("3. Display meetings");
 		System.out.println("4. Remove meeting");
 		System.out.println("5. Edit existing meeting");
-		System.out.println("0. Exit");
+		System.out.println("0. Return to previous menu");
 	}
 	
 	
@@ -228,20 +218,13 @@ public class Menu {
 	}
 	
 	
-	/**
-	 * print the employee's diary
-	 * @param theEmployee
-	 */
+	
 	private void printDiary(Employee theEmployee) {
 		theEmployee.printDiary();		
 	}
 
 
-	/**
-	 * search for meetings
-	 * @param theEmployee
-	 * @return the employee's search criteria
-	 */
+
 	private Meeting searchMeetings(Employee theEmployee) {
 		System.out.println("Please enter the date & time you want to check for a meeting (HH:MM DD/MM/YYYY):");
 		Scanner scanInput = new Scanner(System.in);
@@ -253,11 +236,7 @@ public class Menu {
 	}
 
 	
-	/**
-	 * gets the date and time calendar
-	 * @param input
-	 * @return the new calendar
-	 */
+	
 	private Calendar getTimeDateCalendar(String input) {
 		String[] split = input.split(" ");
 		String[] temp_time = split[0].split(":");
@@ -286,7 +265,7 @@ public class Menu {
 
 		do // do the following while the user's choice is not 0
 		{
-			displayEmployeeMenu(); // display the menu
+			displayManagerMenu(); // display the menu
 			/* Receive the option the user has chosen
 			 * and put it into the choice field
 			 */
@@ -334,13 +313,10 @@ public class Menu {
 	}
 
 
-	/**
-	 * Read in the file
-	 * @param thisCompany
-	 */
+
 	public static void ReadFile(Company thisCompany)
 	{
-		// receive the file name from the user and read in the file
+		
 		System.out.println("Please enter the name of the file you want to open the company's details from: ");
 		Scanner scanFilepath = new Scanner(System.in);
 		String filePath = scanFilepath.nextLine() + ".txt";
@@ -349,13 +325,10 @@ public class Menu {
 	}
 	
 	
-	/**
-	 * Save the file
-	 * @param thisCompany
-	 */
+	
 	public static void SaveFile(Company thisCompany) 
 	{ 
-		// receive the file name from the user and save to a text document
+		
 		System.out.println("Please enter the name of the file you want to save the company's details to: ");
 		Scanner scanFilepath = new Scanner(System.in);
 		String filePath = scanFilepath.nextLine() + ".txt";
@@ -364,12 +337,8 @@ public class Menu {
 	}
 	
 	
-	/**
-	 * Adds an employee to the company
-	 * @param thisCompany
-	 */
+	
 	public static void addEmployee(Company thisCompany) {
-		// receives the employee's name from the user and adds him to the database
 		System.out.println("Please enter the name of the new employee: ");
 		Scanner scanName = new Scanner(System.in);
 		String name = scanName.nextLine();
@@ -377,12 +346,8 @@ public class Menu {
 	}
 	
 	
-	/**
-	 * Remove an employee from the company
-	 * @param thisCompany
-	 */
+	
 	public static void removeEmployee(Company thisCompany) {
-		// receive the employee's name from the user and removes him from the database
 		System.out.println("Please enter the name of the employee you've fired:");
 		Scanner scanName = new Scanner(System.in);
 		String name = scanName.nextLine();
@@ -390,13 +355,8 @@ public class Menu {
 	}
 	
 	
-	/**
-	 * find a suitable group meeting time
-	 * @param thisCompany
-	 */
+	
 	public static void findGroupMeeting(Company thisCompany) {
-		// receive the names of the employees that are organising a meeting along with a date range for possible meetings
-		// and find a suitable meeting time and date for them.
 		System.out.println("Enter the names of the employees you want to organise a group meeting for (separated by commas):");
 		Scanner scanNames = new Scanner(System.in);
 		String allNames = scanNames.nextLine();
@@ -413,40 +373,37 @@ public class Menu {
 	}
 	
 	
-	/**
-	 * add a meeting
-	 * @param thisEmployee
-	 */
+	
 	public static void addMeeting(Employee thisEmployee) {
-		System.out.println("Please enter the date the meeting will take place on (DD/MM/YYYY):"); // receive the meeting's date from the user
+		System.out.println("Please enter the date the meeting will take place on (DD/MM/YYYY):");
 		Scanner scanInput = new Scanner(System.in);
 		String input = scanInput.nextLine();
-		String[] temp_date = input.split("/"); // split the date by forward slashes into a new 1D int array
+		String[] temp_date = input.split("/");
 		int[] date = new int[3];
-		for (int i = 0; i < date.length; i++) { // parse the date array
+		for (int i = 0; i < date.length; i++) {
 			date[i] = Integer.parseInt(temp_date[i]);
 		}
 		
-		System.out.println("Please enter the meetings start time (HH:MM):"); // receive the start time from the user
+		System.out.println("Please enter the meetings start time (HH:MM):");
 		input = scanInput.nextLine();
-		String[] temp_startTime = input.split(":"); // split the time by colons into a new 1D int array
+		String[] temp_startTime = input.split(":");
 		int[] startTime = new int[2];
-		for (int i = 0; i < startTime.length; i++) { // parse the startTime array
+		for (int i = 0; i < startTime.length; i++) {
 			startTime[i] = Integer.parseInt(temp_startTime[i]);
 		}
 		
-		System.out.println("Please enter the meetings end time (HH:MM):"); // receive the end time from the user
+		System.out.println("Please enter the meetings end time (HH:MM):");
 		input = scanInput.nextLine();
-		String[] temp_endTime = input.split(":"); // split the time by colons into a new 1D int array
+		String[] temp_endTime = input.split(":");
 		int[] endTime = new int[2];
-		for (int i = 0; i < startTime.length; i++) { // parse the endTime array
+		for (int i = 0; i < startTime.length; i++) {
 			startTime[i] = Integer.parseInt(temp_startTime[i]);
 		}
 		
-		System.out.println("Please enter a description for the meeting:"); // receive a meeting description from the user
+		System.out.println("Please enter a description for the meeting:");
 		String description = scanInput.nextLine();
 		
-		thisEmployee.addToDiary(date[2], date[1], date[0], startTime[0], startTime[1], endTime[0], endTime[1], description); // add all of the meeting information to the diary
+		thisEmployee.addToDiary(date[2], date[1], date[0], startTime[0], startTime[1], endTime[0], endTime[1], description);
 	}
 	
 	

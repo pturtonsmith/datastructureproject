@@ -7,7 +7,7 @@ import java.util.Stack;
 /**
  * 
  * Employee class.
- * @author Caoilainn McCrory, Patrick Turton-Smith, Joel Sieber, Lucas Cerha
+ * @author Patrick Turton-Smith for Group 8 (Caoilainn McCrory, Joel Sieber, Lucas Cerha & Patrick Turton-Smith)
  * @version 1.0
  */
 
@@ -142,11 +142,7 @@ public class Employee {
 		diary.saveMeeting(outputStream, printWriter);
 	}
 	
-	/**
-	 * 
-	 * @param criteria
-	 * @return the meeting based on the search criteria
-	 */
+	
 	public Meeting searchMeeting(Calendar criteria) {
 		return this.diary.getMeeting(criteria);
 		

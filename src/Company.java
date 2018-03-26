@@ -12,7 +12,7 @@ import java.util.TreeMap;
 
 /**
  * Company class. Contains methods to maintain the Company, such as adding, removing and searching for employees. Also contains method to search selected employees diaries to find an appropriate time for a groupaa meeting.
- * @author Caoilainn McCrory, Patrick Turton-Smith, Joel Sieber, Lucas Cerha
+ * @author Patrick Turton-Smith for Group 8 (Caoilainn McCrory, Joel Sieber, Lucas Cerha & Patrick Turton-Smith)
  * @version 1.0
  */
 
@@ -75,7 +75,7 @@ public class Company {
 	 * @param criteria the names of all the employees to plan for
 	 * @return the linked list of times that all the employees are free
 	 */
-	public LinkedList<Meeting> searchDiaries(String[] criteria) {
+	public LinkedList<Meeting> searchDiariesGroupMeeting(String[] criteria, Calendar startRange, Calendar endRange) {
 		TreeMap<Calendar, Meeting> all_meetings = new TreeMap<Calendar, Meeting>();
 		
 		for (int num_employees = 0; num_employees < criteria.length; num_employees++) {
@@ -83,10 +83,12 @@ public class Company {
 			Iterator<Meeting> iter_meetings = current_employee.getDiary().getDiary().values().iterator();
 			while (iter_meetings.hasNext()) {
 				Meeting current_meeting = iter_meetings.next();
-				all_meetings.put(current_meeting.getStartTime(), current_meeting);
+				if (current_meeting.getStartTime().compareTo(startRange) > 0 && current_meeting.getStartTime().compareTo(endRange) < 0) {
+					all_meetings.put(current_meeting.getStartTime(), current_meeting);
+				}
 			}
-			
 		}
+		
 		all_meetings = mergeMeetings(all_meetings);
 		Iterator<Meeting> iter_all_meetings = all_meetings.values().iterator();
 		while (iter_all_meetings.hasNext()) {
@@ -127,11 +129,7 @@ public class Company {
 		return list_meetings;
 		
 	}
-	
-	/**
-	 * 
-	 * @return the iterator
-	 */
+
 	public Iterator<Employee> iterator() {
 		return this.employees.values().iterator();
 	}
