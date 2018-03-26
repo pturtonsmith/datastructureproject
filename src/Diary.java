@@ -118,7 +118,7 @@ public class Diary {
 	    		currentMeeting = iter_meeting.next();
 	    		long startTime = currentMeeting.getStartTime().getTimeInMillis();
 	    		long endTime = currentMeeting.getEndTime().getTimeInMillis();
-	    		printWriter.println(currentMeeting.getDescription() + "|" + startTime + "|" + endTime);
+	    		printWriter.print(currentMeeting.getDescription() + "~" + startTime + "~" + endTime + ":");
         }
 	}
 	
