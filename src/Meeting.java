@@ -54,8 +54,8 @@ public class Meeting {
 		switch (type) {
 			case 1:
 				String[] temp_startsplit = change.split(" ");
-				String[] temp_startdate = temp_startsplit[0].split("/");
-				String[] temp_starttime = temp_startsplit[1].split(":");
+				String[] temp_startdate = temp_startsplit[1].split("/");
+				String[] temp_starttime = temp_startsplit[0].split(":");
 				int[] startDate = new int[3];
 				int[] startTime = new int[2];
 				for (int i = 0; i < temp_startdate.length; i++) {
