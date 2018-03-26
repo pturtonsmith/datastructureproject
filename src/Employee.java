@@ -154,7 +154,7 @@ public class Employee {
 	 * @param printWriter PrintWriter to print names to file
 	 */
 	public void saveEmployee(FileOutputStream outputStream, PrintWriter printWriter) {
-		printWriter.println(this.name + ";");
+		printWriter.print(this.name + ";");
 		diary.saveMeeting(outputStream, printWriter);
 	}
 	
