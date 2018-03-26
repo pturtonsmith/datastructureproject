@@ -1,17 +1,10 @@
-import java.io.BufferedReader;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
-
 /**
- * @author joelsieber
+ * @author Caoilainn McCrory, Patrick Turton-Smith, Joel Sieber, Lucas Cerha
  *
  */
 public class Menu {
