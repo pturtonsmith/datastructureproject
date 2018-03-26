@@ -133,7 +133,7 @@ public class Employee {
 	}
 	
 	/**
-	 * 
+	 * Saves employee to file
 	 * @param outputStream Output stream for writing to file
 	 * @param printWriter PrintWriter to print names to file
 	 */
@@ -142,7 +142,10 @@ public class Employee {
 		diary.saveMeeting(outputStream, printWriter);
 	}
 	
-	
+	/**
+	* search for the meeting based on the start time
+	* @return the found meeting
+	*/
 	public Meeting searchMeeting(Calendar criteria) {
 		return this.diary.getMeeting(criteria);
 		
