@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
+
 import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 
 /**
@@ -13,11 +14,17 @@ import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
  *
  */
 public class Menu {
+	
+	
 	public Company company;
+	
+	
 	
 	public Menu() {
 		this.company = new Company();
 	}
+	
+	
 	
 	public Company getCompany() {
 		return company;
@@ -29,6 +36,8 @@ public class Menu {
 		this.company = company;
 	}
 	
+	
+	
 	/**
 	 * @param args
 	 */
@@ -38,6 +47,8 @@ public class Menu {
 		
 		myMenu.processUserChoices();
 	}
+
+
 
 	/**
 	 * displays the initial menu
@@ -94,7 +105,7 @@ public class Menu {
 			Scanner s1 = new Scanner(System.in);
 			System.out.println("\nOption: ");
 			choice = s1.nextLine();
-			
+		
 			if (choice.equals("1")) // if the user enters 1 as their choice, open company's data from file
 			{
 				ReadFile(theCompany);
@@ -126,11 +137,62 @@ public class Menu {
 		}
 		while (! choice.equals("0"));
 	}
-
+	
+	
+	
 	/**
 	 * Processes the user's menu choices
 	 */
 	public void employeesView(Employee theEmployee)
+	{
+		String choice;
+		do // do the following while the user's choice is not 0
+		{
+			displayEmployeeMenu(); // display the menu
+			/* Receive the option the user has chosen
+			 * and put it into the choice field
+			 */
+			Scanner s1 = new Scanner(System.in);
+			System.out.println("\nOption: ");
+			choice = s1.nextLine();
+		
+			if (choice.equals("1")) // if the user enters 1 as their choice, open company's data from file
+			{
+				addMeeting(theEmployee);
+			}
+			else if (choice.equals("2")) // If the user enters 2 as their choice, save company's data to file
+			{
+				searchMeetings(theEmployee);
+			}
+			else if (choice.equals("3")) // If the user enters 3 as their choice, an employee wants to manage their diary
+			{
+				printMeetings(theEmployee);
+			}
+			else if (choice.equals("4")) // If the user enters 4 as their choice,
+			{
+				Meeting toBeDeleted = searchMeetings(theEmployee);
+				theEmployee.getDiary().
+			}
+			else if (choice.equals("0")) // If the user enters 0 as their choice,
+			{
+				System.out.println("Goodbye!"); //Display "Goodbye!"
+				// The program will end if this method is chosen
+			}
+			else // if the user has not entered 1,2,3,4 or 0,
+			{
+				System.out.println("Invalid option. Please enter 1,2,3,4, or 0"); // Display an error message
+			}
+			
+		}
+		while (! choice.equals("0"));
+	}
+	
+	
+	
+	/**
+	 * Processes the user's menu choices
+	 */
+	public void managersView(Company theCompany)
 	{
 		String choice;
 		Company theCompany = getCompany();
@@ -175,11 +237,15 @@ public class Menu {
 		}
 		while (! choice.equals("0"));
 	}
+	
+	
+	
+	private void manageEmployee(Employee searchEmployee) {
+		// TODO Auto-generated method stub
+		
+	}
 
-//	private void manageEmployee(Employee searchEmployee) {
-//		// TODO Auto-generated method stub
-//		
-//	}
+
 
 	public static void ReadFile(Company thisCompany)
 	{
@@ -191,6 +257,8 @@ public class Menu {
 		
 	}
 	
+	
+	
 	public static void SaveFile(Company thisCompany) 
 	{ 
 		
@@ -200,7 +268,9 @@ public class Menu {
 		thisCompany.saveFile(filePath);
 		
 	}
-
+	
+	
+	
 	public static void addEmployee(Company thisCompany) {
 		System.out.println("Please enter the name of the new employee: ");
 		Scanner scanName = new Scanner(System.in);
@@ -208,20 +278,24 @@ public class Menu {
 		thisCompany.addEmployee(name);
 	}
 	
+	
+	
 	public static void removeEmployee(Company thisCompany) {
 		System.out.println("Please enter the name of the employee you've fired:");
 		Scanner scanName = new Scanner(System.in);
 		String name = scanName.nextLine();
 		thisCompany.deleteEmployee(name);
 	}
-
+	
+	
+	
 	public static void findGroupMeeting(Company thisCompany) {
-		long start = System.currentTimeMillis();
 		System.out.println("Enter the names of the employees you want to organise a group meeting for (separated by commas):");
 		Scanner scanNames = new Scanner(System.in);
 		String allNames = scanNames.nextLine();
 		String[] indivNames = allNames.split(",");
 		System.out.println("Please enter a date range for the possible meetings (DD/MM/YYYY - DD/MM/YYYY):");
+		
 		// ADD INPUT, SPLIT & PARSE TO CREATE TWO CALENDAR OBJECTS TO SEND TO searchDiariesGroupMeeting METHOD
 		LinkedList<Meeting> possible_times = thisCompany.searchDiariesGroupMeeting(indivNames, startRange, endRange);
 		Iterator<Meeting> iter_free_time = possible_times.iterator();
@@ -229,10 +303,10 @@ public class Menu {
 		while (iter_free_time.hasNext()) {
 			iter_free_time.next().printMeeting();
 		}
-		long timeElapsed = System.currentTimeMillis() - start;
-		System.out.println("Time taken to search: " + timeElapsed);
 	}
-
+	
+	
+	
 	public static void addMeeting(Employee thisEmployee) {
 		System.out.println("Please enter the date the meeting will take place on (DD/MM/YYYY):");
 		Scanner scanInput = new Scanner(System.in);
@@ -242,7 +316,7 @@ public class Menu {
 		for (int i = 0; i < date.length; i++) {
 			date[i] = Integer.parseInt(temp_date[i]);
 		}
-
+		
 		System.out.println("Please enter the meetings start time (HH:MM):");
 		input = scanInput.nextLine();
 		String[] temp_startTime = input.split(":");
@@ -264,4 +338,7 @@ public class Menu {
 		
 		thisEmployee.addToDiary(date[2], date[1], date[0], startTime[0], startTime[1], endTime[0], endTime[1], description);
 	}
+	
+	
+	
 }
