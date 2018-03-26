@@ -91,6 +91,25 @@ public class Menu {
 	
 	
 	/**
+	 * displays the manager's menu
+	 */
+	public void displayManagerMenu()
+	{
+		/* ask the user to select one of the following options
+		 * by typing a corresponding number to the option they
+		 * choose
+		 */
+		System.out.println("Please select one of the options below: ");
+		System.out.println("1. Add employee");
+		System.out.println("2. Search employees");
+		System.out.println("3. Remove employee");
+		System.out.println("4. Plan group meeting");
+		System.out.println("0. Return to previous menu");
+	}
+	
+	
+	
+	/**
 	 * Processes the user's menu choices
 	 */
 	public void processUserChoices()
@@ -237,7 +256,7 @@ public class Menu {
 
 	
 	
-	private Calendar getTimeDateCalendar(String input) {
+	private static Calendar getTimeDateCalendar(String input) {
 		String[] split = input.split(" ");
 		String[] temp_time = split[0].split(":");
 		int[] time = new int[2];
@@ -275,21 +294,36 @@ public class Menu {
 		
 			if (choice.equals("1")) // if the user enters 1 as their choice, open company's data from file
 			{
-				ReadFile(theCompany);
+				System.out.println("Please enter a name for the new employee:");
+				String new_name = s1.nextLine();
+				theCompany.addEmployee(new_name);
 			}
 			else if (choice.equals("2")) // If the user enters 2 as their choice, save company's data to file
 			{
-				SaveFile(theCompany);
+				System.out.println("Please enter the name of the employee you wish to search for:");
+				String criteria = s1.nextLine();
+				if (theCompany.searchEmployee(criteria) != null) {
+					System.out.println("There is an employee on the system with the name " + criteria);
+				} else {
+					System.out.println("No such employee exists on the system");
+				}
 			}
 			else if (choice.equals("3")) // If the user enters 3 as their choice, an employee wants to manage their diary
 			{
-				System.out.println("Please enter your name:");
+				System.out.println("Please enter the name of the employee you want to remove:");
 				String name = s1.nextLine();
-				manageEmployee(theCompany.searchEmployee(name));
+				if (theCompany.deleteEmployee(name) != null) {
+					System.out.println("Employee " + name + " has been removed from the system");
+				} else {
+					System.out.println("No such employee exists and so cannot be removed from the system");
+				}
 			}
-			else if (choice.equals("4")) // If the user enters 4 as their choice,
+			else if (choice.equals("4")) // If the user enters 4 as their choice, find times for group meeting
 			{
-				// does other stuff
+				findGroupMeeting(theCompany);
+			}
+			else if (choice.equals("5")) { // If user enters 5 as their choice, manage an employee
+				Employee manageEmployee = 
 			}
 			else if (choice.equals("0")) // If the user enters 0 as their choice,
 			{
@@ -308,7 +342,7 @@ public class Menu {
 	
 	
 	private void manageEmployee(Employee searchEmployee) {
-		// TODO Auto-generated method stub
+	
 		
 	}
 
@@ -362,7 +396,15 @@ public class Menu {
 		String allNames = scanNames.nextLine();
 		String[] indivNames = allNames.split(",");
 		System.out.println("Please enter a date range for the possible meetings (DD/MM/YYYY - DD/MM/YYYY):");
-		
+		Scanner scanInput = new Scanner(System.in);
+		String input = scanInput.nextLine();
+		String [] dates = input.split(" - ");
+		dates[0] = "00:00 " + dates[0];
+		dates[1] = "23:59 " + dates[1];
+		Calendar startRange = Calendar.getInstance();
+		startRange = getTimeDateCalendar(dates[0]);
+		Calendar endRange = Calendar.getInstance();
+		endRange = getTimeDateCalendar(dates[1]);
 		// ADD INPUT, SPLIT & PARSE TO CREATE TWO CALENDAR OBJECTS TO SEND TO searchDiariesGroupMeeting METHOD
 		LinkedList<Meeting> possible_times = thisCompany.searchDiariesGroupMeeting(indivNames, startRange, endRange);
 		Iterator<Meeting> iter_free_time = possible_times.iterator();
