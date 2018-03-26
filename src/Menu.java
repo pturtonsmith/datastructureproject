@@ -221,7 +221,8 @@ public class Menu {
 					} else if (type == 3) {
 						System.out.println("Please enter the new description for the meeting:");
 					}
-					String change = s1.nextLine();
+					Scanner scanInput = new Scanner(System.in);
+					String change = scanInput.nextLine();
 					theEmployee.editDiary(type, change, toBeEdited.getStartTime());
 				} 
 			} else if (choice.equals("6")) {
