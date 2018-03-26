@@ -1,76 +1,59 @@
 import java.util.TreeMap;
+import java.io.BufferedReader;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.Iterator;
 
-
 /**
- * @author caoilainnmccrory
+ * @author Caoilainn McCrory, Patrick Turton-Smith, Joel Sieber, Lucas Cerha
  *
  */
-
-
 public class Diary {
-
 	
-	
-	/** Private field treemap of meetings in employees diary */ private TreeMap <Calendar, Meeting> diary;
-	
-	
+	TreeMap <Calendar, Meeting> diary;
 	
 	/**
-	 * Default constructor for Diary objects
+	 * Default constructor. Initialises fields to default values
 	 */
 	public Diary() {
 		this.diary = new TreeMap <Calendar, Meeting>();
 	}
 	
-	
-	
 	/**
-	 * Getter for tree of meetings
-	 * @return diary TreeMap of meetings
+	 * Method that passes through date, start/end time, and description into createMeeting method
+	 * @param year Year of meeting
+	 * @param month Month of meeting
+	 * @param day Day of meeting
+	 * @param startHour Start hour of meeting
+	 * @param startMinute Start minute of meeting
+	 * @param endHour End hour of meeting
+	 * @param endMinute End minute of meeting
+	 * @param description Description of meeting
 	 */
-	public TreeMap<Calendar, Meeting> getDiary() {
-		return diary;
-	}
-
-
-
-	/**
-	 * Setter for tree of meetings
-	 * @param diary TreeMap of meetings
-	 */
-	public void setDiary(TreeMap<Calendar, Meeting> diary) {
-		this.diary = diary;
-	}
-
-
-
-	/**
-	 * Method for creating a new meeting for an employee. Receives raw date/time information from calling method and uses it to create a new meeting object and add to the employee's tree of meetings (diary). 
-	 * @param year int year
-	 * @param month int month
-	 * @param date int date of month
-	 * @param startHour int hour of day meeting begins at
-	 * @param startMinute int minute of hour meeting begins at
-	 * @param endHour int hour of day meeting ends at
-	 * @param endMinute int minute of hour meeting ends at
-	 * @param description String description of meeting
-	 */
-	public void createMeeting(int year, int month, int date, int startHour, int startMinute, int endHour, int endMinute, String description) {
+	public void createMeeting(int year, int month, int day, int startHour, int startMinute, int endHour, int endMinute, String description) {
 		Calendar startTime = Calendar.getInstance();
-		startTime.set(year, month, date, startHour, startMinute, 0);
+		startTime.set(year, month, day, startHour, startMinute);
 		Calendar endTime = Calendar.getInstance();
-		endTime.set(year, month, date, endHour, endMinute, 0);
+		endTime.set(year, month, day, endHour, endMinute);
+		
+		createMeeting(startTime, endTime, description);
+	}
+	
+	/**
+	 * Method that creates meeting
+	 * @param startTime Start time of meeting
+	 * @param endTime End time of meeting
+	 * @param description Description of meeting
+	 */
+	public Meeting createMeeting(Calendar startTime, Calendar endTime, String description) {
 		Meeting meetingToAdd = new Meeting(startTime, endTime, description);
+		diary.put(startTime, meetingToAdd);
 		System.out.println("The following meeting has been created and added: ");
 		meetingToAdd.printMeeting();
-		this.diary.put(startTime, meetingToAdd);
+		return meetingToAdd;
 	}
-	
-	
 	
 	/**
 	 * Iterates through tree to see if employee has a meeting at time (criteria). Returns details of the meeting if there is one at that time, or null if there is not.
@@ -92,16 +75,41 @@ public class Diary {
 		
 		return found;
 	}
-
-
-
-	public void createMeeting(Calendar startTime, Calendar endTime, String description) {
-		Meeting meetingToAdd = new Meeting(startTime, endTime, description);
-		this.diary.put(startTime, meetingToAdd);
+	
+	/**
+	 * Method to add meeting to diary
+	 * @param meetingToAdd Meeting to be added
+	 */
+	public void addMeeting(Meeting meetingToAdd) {
+		this.diary.put(meetingToAdd.getStartTime(), meetingToAdd);
 	}
 	
+	/**
+	 * Method to delete meeting from diary
+	 * @param criteria Start time of meeting to be deleted
+	 * @return Reference to meeting that was deleted
+	 */
+	public Meeting deleteMeeting(Calendar criteria) {
+		return diary.remove(criteria);
+	}
 	
+	/**
+	 * Method to edit meeting
+	 * @param type Type of edit to be done
+	 * @param change User's edit to meeting
+	 * @param criteria Start time of meeting to be edited
+	 * @return Array of meetings consisting of original and edited versions of meeting
+	 */
+	public Meeting[] editMeeting(int type, String change, Calendar criteria) {
+		Meeting meetingToEdit = this.getMeeting(criteria);
+		return meetingToEdit.editMeeting(type, change);
+	}
 	
+	/**
+	 * Method that saves meeting
+	 * @param outputStream Output stream for writing to file
+	 * @param printWriter PrintWriter to print meeting info to file
+	 */
 	public void saveMeeting(FileOutputStream outputStream, PrintWriter printWriter) {
         Iterator<Meeting> iter_meeting = this.diary.values().iterator();
         Meeting currentMeeting;
@@ -110,16 +118,22 @@ public class Diary {
 	    		currentMeeting = iter_meeting.next();
 	    		long startTime = currentMeeting.getStartTime().getTimeInMillis();
 	    		long endTime = currentMeeting.getEndTime().getTimeInMillis();
-	    		printWriter.print(startTime + "~" + endTime + "~" + currentMeeting.getDescription() + ":");
+	    		printWriter.println(currentMeeting.getDescription() + "|" + startTime + "|" + endTime);
         }
 	}
-
-
-
-	public void removeMeeting(Meeting toBeRemoved) {
-		this.diary.remove(toBeRemoved);		
+	
+	/**
+	 * @return the diary
+	 */
+	public TreeMap<Calendar, Meeting> getDiary() {
+		return diary;
 	}
-	
-	
-	
+
+	/**
+	 * @param diary the diary to set
+	 */
+	public void setDiary(TreeMap<Calendar, Meeting> diary) {
+		this.diary = diary;
+	}
+
 }
