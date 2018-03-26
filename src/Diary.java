@@ -65,6 +65,8 @@ public class Diary {
 		Calendar endTime = Calendar.getInstance();
 		endTime.set(year, month, date, endHour, endMinute, 0);
 		Meeting meetingToAdd = new Meeting(startTime, endTime, description);
+		System.out.println("The following meeting has been created and added: ");
+		meetingToAdd.printMeeting();
 		this.diary.put(startTime, meetingToAdd);
 	}
 	

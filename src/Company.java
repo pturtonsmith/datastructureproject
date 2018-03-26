@@ -83,10 +83,12 @@ public class Company {
 	
 	/**
 	 * Method for searching through multiple employees diaries to find a suitable time for a group meeting.
-	 * @param criteria the names of all the employees to plan for
+	 * @param criteria criteria the names of all the employees to plan for
+	 * @param startRange
+	 * @param endRange
 	 * @return the linked list of times that all the employees are free
 	 */
-	public LinkedList<Meeting> searchDiaries(String[] criteria) {
+	public LinkedList<Meeting> searchDiariesGroupMeeting(String[] criteria, Calendar startRange, Calendar endRange) {
 		TreeMap<Calendar, Meeting> all_meetings = new TreeMap<Calendar, Meeting>();
 		
 		for (int num_employees = 0; num_employees < criteria.length; num_employees++) {
@@ -94,7 +96,9 @@ public class Company {
 			Iterator<Meeting> iter_meetings = current_employee.getDiary().getDiary().values().iterator();
 			while (iter_meetings.hasNext()) {
 				Meeting current_meeting = iter_meetings.next();
-				all_meetings.put(current_meeting.getStartTime(), current_meeting);
+				if (current_meeting.getStartTime().compareTo(startRange) > 0 && current_meeting.getStartTime().compareTo(endRange) < 0) {
+					all_meetings.put(current_meeting.getStartTime(), current_meeting);
+				}
 			}
 			
 		}
@@ -239,17 +243,13 @@ public class Company {
 	/**
 	 * Method to save all the data about every meeting and every employee in the company to a file. 
 	 */
-	public void saveFile() {
+	public void saveFile(String filePath) {
 		FileOutputStream outputStream = null;
 		PrintWriter printWriter = null;
-		String input;
-		System.out.println("Enter name of file to save to:");
-		Scanner scanner = new Scanner(System.in);
-		input = scanner.nextLine() + ".txt";
 		
 		try {
 		
-			outputStream = new FileOutputStream(input);
+			outputStream = new FileOutputStream(filePath);
 			printWriter = new PrintWriter(outputStream);
 			
 			Iterator<Employee> iter_employees = this.iterator();
@@ -284,17 +284,13 @@ public class Company {
 	/**
 	 * Method to read in all the company's data from a file
 	 */
-	public void openFile() {
+	public void openFile(String filePath) {
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
-		String input;
-		System.out.println("Enter name of file to open from:");
-		Scanner scanner = new Scanner(System.in);
-		input = scanner.nextLine() + ".txt";
 		
 		try {
 			
-			fileReader = new FileReader(input);
+			fileReader = new FileReader(filePath);
 			bufferedReader = new BufferedReader(fileReader);
 			
 			String nextLine = bufferedReader.readLine();
