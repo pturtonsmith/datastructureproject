@@ -1,5 +1,7 @@
 import java.util.TreeMap;
+import java.io.BufferedReader;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -48,6 +50,8 @@ public class Diary {
 	public Meeting createMeeting(Calendar startTime, Calendar endTime, String description) {
 		Meeting meetingToAdd = new Meeting(startTime, endTime, description);
 		diary.put(startTime, meetingToAdd);
+		System.out.println("The following meeting has been created and added: ");
+		meetingToAdd.printMeeting();
 		return meetingToAdd;
 	}
 	
@@ -96,7 +100,7 @@ public class Diary {
 	    		printWriter.println(currentMeeting.getDescription() + "|" + startTime + "|" + endTime);
         }
 	}
-
+	
 	/**
 	 * @return the diary
 	 */

@@ -28,21 +28,6 @@ public class Employee {
 		newStack = new Stack();
 		newStack2 = new Stack();
 	}
-	
-//	/**
-//	 * Method to add meeting to diary. Calls createMeeting method in Meeting class
-//	 * @param year Year of meeting
-//	 * @param month Month of meeting
-//	 * @param date Date of meeting
-//	 * @param startHour Start hour of meeting
-//	 * @param startMinute Start minute of meeting
-//	 * @param endHour End hour of meeting
-//	 * @param endMinute End minute of meeting
-//	 * @param description Description of meeting
-//	 */
-//	public void addToDiary(int year, int month, int date, int startHour, int startMinute, int endHour, int endMinute, String description) {
-//		this.diary.createMeeting(year, month, date, startHour, startMinute, endHour, endMinute, description);
-//	}
 
 	/**
 	 * Method to print diary

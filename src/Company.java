@@ -17,17 +17,19 @@ import java.util.TreeMap;
  */
 
 public class Company {
+
 	/** Private field treemap of employees in company */ private TreeMap<String, Employee> employees;
 
 	/**
 	 * Default constructor for object of Company class. Creates a blank tree sorted by the string name of employee.
 	 */
 	public Company() {
+
 		this.employees = new TreeMap<String, Employee>();
 		//addEmployee("Manager"); // Add owner to manage company
 	
 	}
-	
+
 	/**
 	 * Method to add employee to company's tree
 	 * @param toBeAdded new Employee to be added to tree
@@ -37,7 +39,8 @@ public class Company {
 		if (this.employees.containsKey(new_name)) {
 			System.out.println("There is already an employees with this name, and cannot be added to the company.");
 			System.out.println("You'll just have to sack them.");
-		} else {
+		} 
+		else {
 			this.employees.put(new_name, new Employee(new_name));
 		}
 		
@@ -49,12 +52,12 @@ public class Company {
 	 * @return details of employee to be deleted (null if no such employee exists)
 	 */
 	public Employee deleteEmployee(String criteria) {
-		
+
 		Employee toBeDeleted = this.employees.remove(criteria);
 		return toBeDeleted;
 		
 	}
-	
+
 	/**
 	 * Method for searching tree for an employees details
 	 * @param criteria name of employee to find
@@ -64,6 +67,7 @@ public class Company {
 		
 		Employee found = this.employees.get(criteria);
 		return found;
+		
 	}
 
 	/**
@@ -94,7 +98,7 @@ public class Company {
 		return free_time;
 		
 	}	
-	
+		
 	/**
 	 * Method called from searchDiaries method to merge meetings where they either overlap or are next to each other in order to make determining free time easier.
 	 * @param list_meetings LinkedList containing the times of all the meetings found so far
@@ -116,24 +120,18 @@ public class Company {
 				iter_meetings.remove();
 			} else {
 				current = next;
-		}
+			}
 		
 		}
 		
 		return list_meetings;
 		
 	}
-	
-	/**
-	 * Method that traverses through employee tree
-	 * @return Instance of Employee class
-	 */
+
 	public Iterator<Employee> iterator() {
 		return this.employees.values().iterator();
 	}
-	
-	
-	
+
 	/**
 	 * Method to find the free time for all employees by reversing the list of the times at which they are all busy.
 	 * @param all_meetings LinkedList containing the condensed list of times when all the employees are busy
@@ -174,7 +172,7 @@ public class Company {
 					new_free_time = new Meeting(previous_endTime, previous_sevenPM, "");
 					list_free_time.add(new_free_time);
 				}
-				
+			
 				if (current_startTime.compareTo(current_sevenAM) > 0) {
 					new_free_time = new Meeting(current_sevenAM, current_startTime, "");
 					list_free_time.add(new_free_time);
@@ -197,7 +195,8 @@ public class Company {
 		return list_free_time;
 		
 	}
-
+	
+	
 	/**
 	 * Method to check whether two meetings are on the same day or not.
 	 * @param previous Meeting previous meeting in list of meetings
@@ -205,13 +204,13 @@ public class Company {
 	 * @return boolean whether meetings are on the same day or not
 	 */
 	private Boolean checkSameDay(Meeting previous, Meeting current) {
+		
 		int previous_date = previous.getStartTime().get(Calendar.DATE);
 		int current_date = current.getStartTime().get(Calendar.DATE);
-
+		
 		if (previous_date != current_date) {
 			return false;
-		} 
-		else {
+		} else {
 			return true;
 		}
 		
@@ -220,16 +219,14 @@ public class Company {
 	/**
 	 * Method to save all the data about every meeting and every employee in the company to a file. 
 	 */
-	public void saveFile() {
+	public void saveFile(String input) {
 		FileOutputStream outputStream = null;
 		PrintWriter printWriter = null;
-		String input;
 		System.out.println("Enter name of file to save to:");
 		Scanner scanner = new Scanner(System.in);
 		input = scanner.nextLine() + ".txt";
-
-		try {
 		
+		try {
 			outputStream = new FileOutputStream(input);
 			printWriter = new PrintWriter(outputStream);
 			
@@ -263,18 +260,17 @@ public class Company {
 	/**
 	 * Method to read in all the company's data from a file
 	 */
-	public void openFile() {
-		FileReader fileReader = null;
+	public void openFile(String input) {
+		FileReader filePath = null;
 		BufferedReader bufferedReader = null;
-		String input;
 		System.out.println("Enter name of file to open from:");
 		Scanner scanner = new Scanner(System.in);
 		input = scanner.nextLine() + ".txt";
 		
 		try {
 			
-			fileReader = new FileReader(input);
-			bufferedReader = new BufferedReader(fileReader);
+			filePath = new FileReader(input);
+			bufferedReader = new BufferedReader(filePath);
 			
 			String nextLine = bufferedReader.readLine();
 			
@@ -305,4 +301,4 @@ public class Company {
 			}
 		}
 	}
-}
+} 
