@@ -165,6 +165,7 @@ public class Menu {
 	
 	/**
 	 * Processes the user's menu choices
+	 * @param theEmployee the employee using the menu
 	 */
 	public void employeesView(Employee theEmployee)
 	{
@@ -245,7 +246,7 @@ public class Menu {
 	
 	/**
 	* print the diary
-	* @param theEmployee
+	* @param theEmployee the employee printing the diary
 	*/
 	private void printDiary(Employee theEmployee) {
 		theEmployee.printDiary();		
@@ -254,7 +255,7 @@ public class Menu {
 
 	/**
 	* Search for meetings
-	* @param theEmployee
+	* @param theEmployee the employee searching meetings
 	* @return the meeting that has been found (or null if empty - one was not found)
 	*/
 	private Meeting searchMeetings(Employee theEmployee) {
@@ -270,7 +271,7 @@ public class Menu {
 	
 	/**
 	* Receives a string input and converts it to a calendar object
-	* @param input
+	* @param input The user's input
 	* @return the new calendar
 	*/
 	private static Calendar getTimeDateCalendar(String input) {
@@ -294,6 +295,7 @@ public class Menu {
 
 	/**
 	 * Processes the user's menu choices
+	 * @param theCompany the company diary
 	 */
 	public void managersView(Company theCompany)
 	{
@@ -369,7 +371,7 @@ public class Menu {
 	
 	/**
 	* Adds a group meeting
-	* @param theCompany
+	* @param theCompany the company diary
 	*/
 	private static void addGroupMeeting(Company theCompany) {
 		System.out.println("Enter the names of the employees you want to organise a group meeting for (separated by commas):");
@@ -397,7 +399,7 @@ public class Menu {
 
 	/**
 	* edit an employee's information
-	* @param manageEmployee
+	* @param manageEmployee the employee information which is to be edited
 	*/
 	private void manageEmployee(Employee manageEmployee) {
 		System.out.println("Managing employee: " + manageEmployee.getName());
@@ -422,7 +424,7 @@ public class Menu {
 
 	/**
 	* read in from a file
-	* @param thisCompany
+	* @param thisCompany the company diary
 	*/
 	public static void ReadFile(Company thisCompany)
 	{
@@ -437,7 +439,7 @@ public class Menu {
 	
 	/**
 	* save to a file
-	* @param thisCompany
+	* @param thisCompany the company diary
 	*/
 	public static void SaveFile(Company thisCompany) 
 	{ 
@@ -452,7 +454,7 @@ public class Menu {
 	
 	/**
 	* add an employee to the company
-	* @param thisCompany
+	* @param thisCompany the company diary
 	*/
 	public static void addEmployee(Company thisCompany) {
 		System.out.println("Please enter the name of the new employee: ");
@@ -464,7 +466,7 @@ public class Menu {
 	
 	/**
 	* remove an employee from the company
-	* @param thisCompany
+	* @param thisCompany the company diary
 	*/
 	public static void removeEmployee(Company thisCompany) {
 		System.out.println("Please enter the name of the employee you've fired:");
@@ -476,7 +478,7 @@ public class Menu {
 	
 	/**
 	* find a suitable time for a group meeting
-	* @param thisCompany
+	* @param thisCompany the company diary
 	*/
 	public static void findGroupMeeting(Company thisCompany) {
 		System.out.println("Enter the names of the employees you want to organise a group meeting for (separated by commas):");
@@ -503,7 +505,7 @@ public class Menu {
 	
 	
 	/** Add a meeting
-	* @param thisEmployee
+	* @param thisEmployee the employee(s) taking part in the meeting
 	*/
 	public static void addMeeting(Employee thisEmployee) {
 		System.out.println("Please enter the date the meeting will take place on (DD/MM/YYYY):");
