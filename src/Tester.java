@@ -1,8 +1,18 @@
 import java.util.Iterator;
 import java.util.LinkedList;
 
+/**
+ * Tester class. Carries out several pre-defined tests
+ * @author Caoilainn McCrory, Patrick Turton-Smith, Joel Sieber, Lucas Cerha
+ * @version 1.0
+ */
+
 public class Tester {
 
+	/**
+	 * Main method
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Company testCompany = new Company();
