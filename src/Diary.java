@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Iterator;
 
 /**
+ * Diary class. Adds, deletes, edits and saves meetings
  * @author Caoilainn McCrory, Patrick Turton-Smith, Joel Sieber, Lucas Cerha
  *
  */
