@@ -2,8 +2,8 @@ import java.util.Date;
 import java.util.Calendar;
 
 /**
+ * Meeting class. Print and edit meetings, set the date, time, description, start time and end time.
  * @author Caoilainn McCrory, Patrick Turton-Smith, Joel Sieber, Lucas Cerha
- * 
  * @version v1.0
  */
 
