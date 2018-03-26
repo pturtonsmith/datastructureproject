@@ -418,35 +418,35 @@ public class Menu {
 	 * @param thisEmployee
 	 */
 	public static void addMeeting(Employee thisEmployee) {
-		System.out.println("Please enter the date the meeting will take place on (DD/MM/YYYY):");
+		System.out.println("Please enter the date the meeting will take place on (DD/MM/YYYY):"); // receive the meeting's date from the user
 		Scanner scanInput = new Scanner(System.in);
 		String input = scanInput.nextLine();
-		String[] temp_date = input.split("/");
+		String[] temp_date = input.split("/"); // split the date by forward slashes into a new 1D int array
 		int[] date = new int[3];
-		for (int i = 0; i < date.length; i++) {
+		for (int i = 0; i < date.length; i++) { // parse the date array
 			date[i] = Integer.parseInt(temp_date[i]);
 		}
 		
-		System.out.println("Please enter the meetings start time (HH:MM):");
+		System.out.println("Please enter the meetings start time (HH:MM):"); // receive the start time from the user
 		input = scanInput.nextLine();
-		String[] temp_startTime = input.split(":");
+		String[] temp_startTime = input.split(":"); // split the time by colons into a new 1D int array
 		int[] startTime = new int[2];
-		for (int i = 0; i < startTime.length; i++) {
+		for (int i = 0; i < startTime.length; i++) { // parse the startTime array
 			startTime[i] = Integer.parseInt(temp_startTime[i]);
 		}
 		
-		System.out.println("Please enter the meetings end time (HH:MM):");
+		System.out.println("Please enter the meetings end time (HH:MM):"); // receive the end time from the user
 		input = scanInput.nextLine();
-		String[] temp_endTime = input.split(":");
+		String[] temp_endTime = input.split(":"); // split the time by colons into a new 1D int array
 		int[] endTime = new int[2];
-		for (int i = 0; i < startTime.length; i++) {
+		for (int i = 0; i < startTime.length; i++) { // parse the endTime array
 			startTime[i] = Integer.parseInt(temp_startTime[i]);
 		}
 		
-		System.out.println("Please enter a description for the meeting:");
+		System.out.println("Please enter a description for the meeting:"); // receive a meeting description from the user
 		String description = scanInput.nextLine();
 		
-		thisEmployee.addToDiary(date[2], date[1], date[0], startTime[0], startTime[1], endTime[0], endTime[1], description);
+		thisEmployee.addToDiary(date[2], date[1], date[0], startTime[0], startTime[1], endTime[0], endTime[1], description); // add all of the meeting information to the diary
 	}
 	
 	
