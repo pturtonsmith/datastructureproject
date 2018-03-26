@@ -51,7 +51,7 @@ public class Diary {
 	public Meeting createMeeting(Calendar startTime, Calendar endTime, String description) {
 		Meeting meetingToAdd = new Meeting(startTime, endTime, description);
 		diary.put(startTime, meetingToAdd);
-		System.out.println("The following meeting has been created and added: ");
+		System.out.println("The following meeting has been created and added: "); // let the user know that the meeting has been created and added
 		meetingToAdd.printMeeting();
 		return meetingToAdd;
 	}
@@ -65,7 +65,7 @@ public class Diary {
 		Iterator<Meeting> iter_meetings = this.getDiary().values().iterator();
 		Meeting found = null;
 		
-		while (iter_meetings.hasNext() && found != null) {
+		while (iter_meetings.hasNext() && found != null) { // while there is another meeting in the tree and the meeting has not been found,
 			Meeting current = iter_meetings.next();
 			if (current.getStartTime().compareTo(criteria) >= 0 && current.getEndTime().compareTo(criteria) < 0) {
 				found = current;
@@ -82,7 +82,7 @@ public class Diary {
 	 * @param meetingToAdd Meeting to be added
 	 */
 	public void addMeeting(Meeting meetingToAdd) {
-		this.diary.put(meetingToAdd.getStartTime(), meetingToAdd);
+		this.diary.put(meetingToAdd.getStartTime(), meetingToAdd); // add the meeting to diary
 	}
 	
 	/**
@@ -91,7 +91,7 @@ public class Diary {
 	 * @return Reference to meeting that was deleted
 	 */
 	public Meeting deleteMeeting(Meeting toBeDeleted) {
-		return diary.remove(toBeDeleted.getStartTime());
+		return diary.remove(toBeDeleted.getStartTime()); // delete the meeting from the diary
 	}
 	
 	/**
@@ -102,8 +102,8 @@ public class Diary {
 	 * @return Array of meetings consisting of original and edited versions of meeting
 	 */
 	public Meeting[] editMeeting(int type, String change, Calendar criteria) {
-		Meeting meetingToEdit = this.getMeeting(criteria);
-		return meetingToEdit.editMeeting(type, change);
+		Meeting meetingToEdit = this.getMeeting(criteria); // set the meeting to be edited
+		return meetingToEdit.editMeeting(type, change); // return the edited meeting
 	}
 	
 	/**
