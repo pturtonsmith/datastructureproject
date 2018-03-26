@@ -3,6 +3,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -162,25 +163,54 @@ public class Menu {
 			}
 			else if (choice.equals("2")) // If the user enters 2 as their choice, save company's data to file
 			{
-				searchMeetings(theEmployee);
+				Meeting found = searchMeetings(theEmployee);
+				if (found != null) {
+					System.out.println("A meeting has been found at this time:");
+					found.printMeeting();
+				} else {
+					System.out.println("No meeting has been found at this time");
+				}
+				
 			}
 			else if (choice.equals("3")) // If the user enters 3 as their choice, an employee wants to manage their diary
 			{
-				printMeetings(theEmployee);
+				printDiary(theEmployee);
 			}
 			else if (choice.equals("4")) // If the user enters 4 as their choice,
 			{
 				Meeting toBeDeleted = searchMeetings(theEmployee);
-				theEmployee.getDiary().
+				if (toBeDeleted != null) {
+					theEmployee.deleteFromDiary(toBeDeleted);
+				} else {
+					System.out.println("No meeting has been found at this time and so cannot be deleted");
+				}
+			}
+			else if (choice.equals("5")) { // If user enters 5 as their choice, they want to edit a meeting
+				Meeting toBeEdited = searchMeetings(theEmployee);
+				if (toBeEdited != null) {
+					toBeEdited.printMeeting();
+					System.out.println("Please enter the type of change of you want to make:");
+					System.out.println("1 - Change start time");
+					System.out.println("2 - Change end time");
+					System.out.println("3 - Change description");
+					int type = s1.nextInt();
+					if (type == 1 || type == 2) {
+						System.out.println("Please enter the new date & time for the meeting (HH:MM DD/MM/YYYY):");		
+					} else if (type == 3) {
+						System.out.println("Please enter the new description for the meeting:");
+					}
+					String change = s1.nextLine();
+					theEmployee.editDiary(type, change, toBeEdited.getStartTime());
+				} 
 			}
 			else if (choice.equals("0")) // If the user enters 0 as their choice,
 			{
 				System.out.println("Goodbye!"); //Display "Goodbye!"
-				// The program will end if this method is chosen
+				// The program will return to initial menu
 			}
 			else // if the user has not entered 1,2,3,4 or 0,
 			{
-				System.out.println("Invalid option. Please enter 1,2,3,4, or 0"); // Display an error message
+				System.out.println("Invalid option"); // Display an error message
 			}
 			
 		}
@@ -189,13 +219,50 @@ public class Menu {
 	
 	
 	
+	private void printDiary(Employee theEmployee) {
+		theEmployee.printDiary();		
+	}
+
+
+
+	private Meeting searchMeetings(Employee theEmployee) {
+		System.out.println("Please enter the date & time you want to check for a meeting (HH:MM DD/MM/YYYY):");
+		Scanner scanInput = new Scanner(System.in);
+		String input = scanInput.nextLine();
+		Calendar criteria = getTimeDateCalendar(input);
+		Meeting toBeFound = theEmployee.searchMeeting(criteria);
+		
+		return toBeFound;
+	}
+
+	
+	
+	private Calendar getTimeDateCalendar(String input) {
+		String[] split = input.split(" ");
+		String[] temp_time = split[0].split(":");
+		int[] time = new int[2];
+		time[0] = Integer.parseInt(temp_time[0]);
+		time[1] = Integer.parseInt(temp_time[1]);
+		String[] temp_date = split[1].split("/");
+		int[] date = new int[3];
+		date[0] = Integer.parseInt(temp_date[0]);
+		date[1] = Integer.parseInt(temp_date[1]);
+		date[2] = Integer.parseInt(temp_date[2]);
+		
+		Calendar newCalendar = Calendar.getInstance();
+		newCalendar.set(date[2], date[1], date[0], time[0], time[1]);
+		return newCalendar;
+	}
+	
+	
+
 	/**
 	 * Processes the user's menu choices
 	 */
 	public void managersView(Company theCompany)
 	{
 		String choice;
-		Company theCompany = getCompany();
+
 		do // do the following while the user's choice is not 0
 		{
 			displayEmployeeMenu(); // display the menu

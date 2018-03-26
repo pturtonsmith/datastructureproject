@@ -89,8 +89,8 @@ public class Diary {
 	 * @param criteria Start time of meeting to be deleted
 	 * @return Reference to meeting that was deleted
 	 */
-	public Meeting deleteMeeting(Calendar criteria) {
-		return diary.remove(criteria);
+	public Meeting deleteMeeting(Meeting toBeDeleted) {
+		return diary.remove(toBeDeleted.getStartTime());
 	}
 	
 	/**
