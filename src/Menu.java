@@ -143,7 +143,7 @@ public class Menu {
 				}
 				
 			}
-			else if (choice.equals("4")) // If the user enters 4 as their choice,
+			else if (choice.equals("4")) // If the user enters 4 as their choice, open the manager's view
 			{
 				managersView(theCompany);
 			}
@@ -238,17 +238,24 @@ public class Menu {
 			}
 			
 		}
-		while (! choice.equals("0"));
+		while (! choice.equals("0")); // while the user's choice is NOT zero
 	}
 	
 	
-	
+	/**
+	* print the diary
+	* @param theEmployee
+	*/
 	private void printDiary(Employee theEmployee) {
 		theEmployee.printDiary();		
 	}
 
 
-
+	/**
+	* Search for meetings
+	* @param theEmployee
+	* @return the meeting that has been found (or null if empty - one was not found)
+	*/
 	private Meeting searchMeetings(Employee theEmployee) {
 		System.out.println("Please enter the date & time you want to check for a meeting (HH:MM DD/MM/YYYY):");
 		Scanner scanInput = new Scanner(System.in);
@@ -260,7 +267,11 @@ public class Menu {
 	}
 
 	
-	
+	/**
+	* Receives a string input and converts it to a calendar object
+	* @param input
+	* @return the new calendar
+	*/
 	private static Calendar getTimeDateCalendar(String input) {
 		String[] split = input.split(" ");
 		String[] temp_time = split[0].split(":");
@@ -355,7 +366,10 @@ public class Menu {
 	}
 	
 	
-	
+	/**
+	* Adds a group meeting
+	* @param theCompany
+	*/
 	private static void addGroupMeeting(Company theCompany) {
 		System.out.println("Enter the names of the employees you want to organise a group meeting for (separated by commas):");
 		Scanner scanNames = new Scanner(System.in);
@@ -380,7 +394,10 @@ public class Menu {
 	}
 
 
-
+	/**
+	* edit an employee's information
+	* @param manageEmployee
+	*/
 	private void manageEmployee(Employee manageEmployee) {
 		System.out.println("Managing employee: " + manageEmployee.getName());
 		System.out.println("Please choose an option:");
@@ -402,7 +419,10 @@ public class Menu {
 	}
 
 
-
+	/**
+	* read in from a file
+	* @param thisCompany
+	*/
 	public static void ReadFile(Company thisCompany)
 	{
 		
@@ -414,7 +434,10 @@ public class Menu {
 	}
 	
 	
-	
+	/**
+	* save to a file
+	* @param thisCompany
+	*/
 	public static void SaveFile(Company thisCompany) 
 	{ 
 		
@@ -426,7 +449,10 @@ public class Menu {
 	}
 	
 	
-	
+	/**
+	* add an employee to the company
+	* @param thisCompany
+	*/
 	public static void addEmployee(Company thisCompany) {
 		System.out.println("Please enter the name of the new employee: ");
 		Scanner scanName = new Scanner(System.in);
@@ -435,7 +461,10 @@ public class Menu {
 	}
 	
 	
-	
+	/**
+	* remove an employee from the company
+	* @param thisCompany
+	*/
 	public static void removeEmployee(Company thisCompany) {
 		System.out.println("Please enter the name of the employee you've fired:");
 		Scanner scanName = new Scanner(System.in);
@@ -444,7 +473,10 @@ public class Menu {
 	}
 	
 	
-	
+	/**
+	* find a suitable time for a group meeting
+	* @param thisCompany
+	*/
 	public static void findGroupMeeting(Company thisCompany) {
 		System.out.println("Enter the names of the employees you want to organise a group meeting for (separated by commas):");
 		Scanner scanNames = new Scanner(System.in);
@@ -469,7 +501,9 @@ public class Menu {
 	}
 	
 	
-	
+	/** Add a meeting
+	* @param thisEmployee
+	*/
 	public static void addMeeting(Employee thisEmployee) {
 		System.out.println("Please enter the date the meeting will take place on (DD/MM/YYYY):");
 		Scanner scanInput = new Scanner(System.in);
