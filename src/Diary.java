@@ -7,7 +7,6 @@ import java.util.Calendar;
 import java.util.Iterator;
 
 /**
- * Diary class. Adds, deletes, edits and saves meetings
  * @author Caoilainn McCrory, Patrick Turton-Smith, Joel Sieber, Lucas Cerha
  *
  */
@@ -65,9 +64,9 @@ public class Diary {
 		Iterator<Meeting> iter_meetings = this.getDiary().values().iterator();
 		Meeting found = null;
 		
-		while (iter_meetings.hasNext() && found != null) {
+		while (iter_meetings.hasNext() && found == null) {
 			Meeting current = iter_meetings.next();
-			if (current.getStartTime().compareTo(criteria) >= 0 && current.getEndTime().compareTo(criteria) < 0) {
+			if (current.getStartTime().compareTo(criteria) <= 0 && current.getEndTime().compareTo(criteria) > 0) {
 				found = current;
 			} else {
 				found = null;

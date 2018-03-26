@@ -6,7 +6,7 @@ import java.util.Stack;
 
 /**
  * 
- * Employee class. Contains methods to print, delete from, and edit the diary, undo, save employees, search meetings, and get and set name and diary.
+ * Employee class.
  * @author Patrick Turton-Smith for Group 8 (Caoilainn McCrory, Joel Sieber, Lucas Cerha & Patrick Turton-Smith)
  * @version 1.0
  */
@@ -63,6 +63,22 @@ public class Employee {
 				Meeting newMeeting = this.diary.createMeeting(startTime, endTime, description);
 				newStack.push(newMeeting);
 				newStack2.push(1);
+	}
+	
+	
+	/**
+	 * Alternative method to add meeting to diary
+	 * @param year int year of meeting
+	 * @param month int month of meeting
+	 * @param date int date of meeting
+	 * @param startHour int hour of start time
+	 * @param startMinute int minute of start time
+	 * @param endHour int hour of end time
+	 * @param endMinute int minute of end time
+	 * @param description String description of the meeting
+	 */
+	public void addToDiary(int year, int month, int date, int startHour, int startMinute, int endHour, int endMinute, String description) {
+		this.diary.createMeeting(year, month, date, startHour, startMinute, endHour, endMinute, description);
 	}
 	
 	/**
@@ -133,7 +149,7 @@ public class Employee {
 	}
 	
 	/**
-	 * Saves employee to file
+	 * 
 	 * @param outputStream Output stream for writing to file
 	 * @param printWriter PrintWriter to print names to file
 	 */
@@ -142,10 +158,7 @@ public class Employee {
 		diary.saveMeeting(outputStream, printWriter);
 	}
 	
-	/**
-	* search for the meeting based on the start time
-	* @return the found meeting
-	*/
+	
 	public Meeting searchMeeting(Calendar criteria) {
 		return this.diary.getMeeting(criteria);
 		

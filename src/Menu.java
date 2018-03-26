@@ -138,11 +138,18 @@ public class Menu {
 			{
 				System.out.println("Please enter your name:");
 				String name = s1.nextLine();
-				employeesView(theCompany.searchEmployee(name));
+				Employee theEmployee = theCompany.searchEmployee(name);
+				if (theEmployee != null) {
+					System.out.println("Now entering employees view...");
+					employeesView(theCompany.searchEmployee(name));
+				} else {
+					System.out.println("There is no employee with this name");
+				}
+				
 			}
 			else if (choice.equals("4")) // If the user enters 4 as their choice,
 			{
-				// does other stuff
+				managersView(theCompany);
 			}
 			else if (choice.equals("0")) // If the user enters 0 as their choice,
 			{
@@ -265,7 +272,7 @@ public class Menu {
 		String[] temp_date = split[1].split("/");
 		int[] date = new int[3];
 		date[0] = Integer.parseInt(temp_date[0]);
-		date[1] = Integer.parseInt(temp_date[1]);
+		date[1] = Integer.parseInt(temp_date[1]) - 1;
 		date[2] = Integer.parseInt(temp_date[2]);
 		
 		Calendar newCalendar = Calendar.getInstance();
@@ -323,7 +330,14 @@ public class Menu {
 				findGroupMeeting(theCompany);
 			}
 			else if (choice.equals("5")) { // If user enters 5 as their choice, manage an employee
-				Employee manageEmployee = 
+				System.out.println("Please enter the name of the employee you wish to manage:");
+				String criteria = s1.nextLine();
+				Employee manageEmployee = theCompany.searchEmployee(criteria);
+				if (manageEmployee != null) {
+					manageEmployee(manageEmployee);
+				} else {
+					System.out.println("This employee does not exist in the system");
+				}
 			}
 			else if (choice.equals("0")) // If the user enters 0 as their choice,
 			{
@@ -341,9 +355,24 @@ public class Menu {
 	
 	
 	
-	private void manageEmployee(Employee searchEmployee) {
-	
-		
+	private void manageEmployee(Employee manageEmployee) {
+		System.out.println("Managing employee: " + manageEmployee.getName());
+		System.out.println("Please choose an option:");
+		System.out.println("1 - Change their name");
+		System.out.println("2 - Enter their employee view");
+		Scanner scanInput = new Scanner(System.in);
+		int choice = scanInput.nextInt();
+		switch (choice) {
+		case 1:
+				System.out.println("Please enter their new name:");
+				String name = scanInput.nextLine();
+				manageEmployee.setName(name);
+				break;
+		case 2:
+				System.out.println("Now entering employee view...");
+				employeesView(manageEmployee);
+				break;
+		}
 	}
 
 
@@ -425,6 +454,7 @@ public class Menu {
 		for (int i = 0; i < date.length; i++) {
 			date[i] = Integer.parseInt(temp_date[i]);
 		}
+		date[1] = date[1] - 1;
 		
 		System.out.println("Please enter the meetings start time (HH:MM):");
 		input = scanInput.nextLine();
@@ -438,8 +468,8 @@ public class Menu {
 		input = scanInput.nextLine();
 		String[] temp_endTime = input.split(":");
 		int[] endTime = new int[2];
-		for (int i = 0; i < startTime.length; i++) {
-			startTime[i] = Integer.parseInt(temp_startTime[i]);
+		for (int i = 0; i < endTime.length; i++) {
+			endTime[i] = Integer.parseInt(temp_endTime[i]);
 		}
 		
 		System.out.println("Please enter a description for the meeting:");

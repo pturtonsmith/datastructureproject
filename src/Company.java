@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -26,7 +27,6 @@ public class Company {
 	public Company() {
 
 		this.employees = new TreeMap<String, Employee>();
-		//addEmployee("Manager"); // Add owner to manage company
 	
 	}
 
@@ -38,7 +38,7 @@ public class Company {
 		
 		if (this.employees.containsKey(new_name)) { // if an employee with the same name is found,
 			System.out.println("There is already an employees with this name, and cannot be added to the company."); // let the user know the employee cannot be added
-			System.out.println("You'll just have to sack them."); // this bit's a joke
+			System.out.println("You'll just have to sack them."); // this bit's a joke 
 		} 
 		else { // otherwise, add the employee to the company
 			this.employees.put(new_name, new Employee(new_name));
@@ -77,6 +77,7 @@ public class Company {
 	 */
 	public LinkedList<Meeting> searchDiariesGroupMeeting(String[] criteria, Calendar startRange, Calendar endRange) {
 		TreeMap<Calendar, Meeting> all_meetings = new TreeMap<Calendar, Meeting>();
+		Date startTime = new Date();
 		
 		for (int num_employees = 0; num_employees < criteria.length; num_employees++) {
 			Employee current_employee = this.employees.get(criteria[num_employees]);
@@ -90,16 +91,18 @@ public class Company {
 		}
 		
 		all_meetings = mergeMeetings(all_meetings);
-		Iterator<Meeting> iter_all_meetings = all_meetings.values().iterator();
-		while (iter_all_meetings.hasNext()) {
-			iter_all_meetings.next().printMeeting();
-		}
-		
 		LinkedList<Meeting> free_time = findFreeTime(all_meetings);
+		Date endTime = new Date();
+		long diffInMillies = endTime.getTime() - startTime.getTime();
+		long second = (diffInMillies / 1000) % 60;
+		long minute = (diffInMillies / (1000 * 60)) % 60;
+		long hour = (diffInMillies / (1000 * 60 * 60)) % 24;
+		String searchDuration = String.format("%02d:%02d:%02d", hour, minute, second);
+		System.out.println("Time taken to search for possible meetings: " + searchDuration);
 		
 		return free_time;
 		
-	}	
+	}
 		
 	/**
 	 * Method called from searchDiaries method to merge meetings where they either overlap or are next to each other in order to make determining free time easier.
@@ -217,6 +220,13 @@ public class Company {
 		}
 		
 	}
+	
+	public void addGroupMeeting(String[] names, Meeting groupMeeting) {
+		for (int num_employees = 0; num_employees < names.length; num_employees++) {
+			Employee current_employee = this.employees.get(names[num_employees]);
+			current_employee.getDiary().addMeeting(groupMeeting);
+		}
+	}
 
 	/**
 	 * Method to save all the data about every meeting and every employee in the company to a file. 
@@ -224,9 +234,6 @@ public class Company {
 	public void saveFile(String input) {
 		FileOutputStream outputStream = null;
 		PrintWriter printWriter = null;
-		System.out.println("Enter name of file to save to:");
-		Scanner scanner = new Scanner(System.in);
-		input = scanner.nextLine() + ".txt";
 		
 		try {
 			outputStream = new FileOutputStream(input);
@@ -265,9 +272,6 @@ public class Company {
 	public void openFile(String input) {
 		FileReader filePath = null;
 		BufferedReader bufferedReader = null;
-		System.out.println("Enter name of file to open from:");
-		Scanner scanner = new Scanner(System.in);
-		input = scanner.nextLine() + ".txt";
 		
 		try {
 			
@@ -294,9 +298,9 @@ public class Company {
 		} catch (IOException e) {
 			System.out.println("There was an error opening your file.");
 		} finally {
-			if (printWriter != null) { // if the printWriter is not empty then
+			if (bufferedReader != null) { // if the printWriter is not empty then
 				try {
-					printWriter.close(); // close it
+					bufferedReader.close(); // close it
 				} catch (IOException e) {
 					System.out.println("There was an error"); // if there's an IOException error then let them know
 				}
