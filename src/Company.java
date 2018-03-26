@@ -287,7 +287,7 @@ public class Company {
 				
 				for (int i = 0; i < all_meetings.length; i++) {
 					String[] current_meeting = all_meetings[i].split("\\~");
-					new_employee.addToDiary(current_meeting[0], current_meeting[1], current_meeting[2]);
+					new_employee.addToDiary(current_meeting[1], current_meeting[2], current_meeting[0]);
 				}
 				
 				this.employees.put(split[0], new_employee);
