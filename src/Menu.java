@@ -85,6 +85,7 @@ public class Menu {
 		System.out.println("3. Display meetings");
 		System.out.println("4. Remove meeting");
 		System.out.println("5. Edit existing meeting");
+		System.out.println("6. Undo last change");
 		System.out.println("0. Return to previous menu");
 	}
 	
@@ -103,7 +104,9 @@ public class Menu {
 		System.out.println("1. Add employee");
 		System.out.println("2. Search employees");
 		System.out.println("3. Remove employee");
-		System.out.println("4. Plan group meeting");
+		System.out.println("4. Find time for group meeting");
+		System.out.println("5. Add group meeting");
+		System.out.println("6. Manage employee");
 		System.out.println("0. Return to previous menu");
 	}
 	
@@ -228,6 +231,8 @@ public class Menu {
 					String change = s1.nextLine();
 					theEmployee.editDiary(type, change, toBeEdited.getStartTime());
 				} 
+			} else if (choice.equals("6")) {
+				theEmployee.undo();
 			}
 			else if (choice.equals("0")) // If the user enters 0 as their choice,
 			{
@@ -329,7 +334,10 @@ public class Menu {
 			{
 				findGroupMeeting(theCompany);
 			}
-			else if (choice.equals("5")) { // If user enters 5 as their choice, manage an employee
+			else if (choice.equals("5")) { // If the user enters 5 as their choice, add a group meeting to everyones diary
+				addGroupMeeting(theCompany);	
+			}
+			else if (choice.equals("6")) { // If user enters 6 as their choice, manage an employee
 				System.out.println("Please enter the name of the employee you wish to manage:");
 				String criteria = s1.nextLine();
 				Employee manageEmployee = theCompany.searchEmployee(criteria);
@@ -355,6 +363,31 @@ public class Menu {
 	
 	
 	
+	private static void addGroupMeeting(Company theCompany) {
+		System.out.println("Enter the names of the employees you want to organise a group meeting for (separated by commas):");
+		Scanner scanNames = new Scanner(System.in);
+		String allNames = scanNames.nextLine();
+		String[] indivNames = allNames.split(",");
+		System.out.println("Please enter the start time of the group meeting (HH:MM DD/MM/YYYY):");
+		Scanner scanInput = new Scanner(System.in);
+		String input = scanInput.nextLine();
+		Calendar startTime = Calendar.getInstance();
+		startTime = getTimeDateCalendar(input);
+		System.out.println("Please enter the end time of the group meeting (HH:MM DD/MM/YYYY):");
+		input = scanInput.nextLine();
+		Calendar endTime = Calendar.getInstance();
+		endTime = getTimeDateCalendar(input);
+		System.out.println("Please enter a description for the meeting:");
+		String description = scanInput.nextLine();
+		
+		Meeting groupMeeting = new Meeting(startTime, endTime, description);
+		theCompany.addGroupMeeting(indivNames, groupMeeting);
+		System.out.println("The following meeting has been added to their diaries:");
+		groupMeeting.printMeeting();
+	}
+
+
+
 	private void manageEmployee(Employee manageEmployee) {
 		System.out.println("Managing employee: " + manageEmployee.getName());
 		System.out.println("Please choose an option:");
@@ -434,7 +467,6 @@ public class Menu {
 		startRange = getTimeDateCalendar(dates[0]);
 		Calendar endRange = Calendar.getInstance();
 		endRange = getTimeDateCalendar(dates[1]);
-		// ADD INPUT, SPLIT & PARSE TO CREATE TWO CALENDAR OBJECTS TO SEND TO searchDiariesGroupMeeting METHOD
 		LinkedList<Meeting> possible_times = thisCompany.searchDiariesGroupMeeting(indivNames, startRange, endRange);
 		Iterator<Meeting> iter_free_time = possible_times.iterator();
 		System.out.println("\n The employees are all free at these times:");
