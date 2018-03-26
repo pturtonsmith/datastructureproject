@@ -36,10 +36,10 @@ public class Meeting {
 	 * Method to print meeting
 	 */
 	public void printMeeting() {
-		Date startTime = getStartTime().getTime();
-		Date endTime = getEndTime().getTime();
-		String description = getDescription();
-		System.out.print(startTime + "\n" + endTime + "\n" + description);
+		Date startTime = getStartTime().getTime(); // set the start time
+		Date endTime = getEndTime().getTime(); // set the end time
+		String description = getDescription(); // set the description
+		System.out.print(startTime + "\n" + endTime + "\n" + description); // print the start time, end time, and description
 	}
 	
 	/**
@@ -99,10 +99,10 @@ public class Meeting {
 	 * @param endMinute End minute to be set
 	 */
 	public Meeting setDateTime(int year, int month, int day, int startHour, int startMinute, int endHour, int endMinute, String description) {
-		startTime.set(year, month, day, startHour, startMinute);
-		endTime.set(year, month, day, endHour, endMinute);
+		startTime.set(year, month, day, startHour, startMinute); // set the start time
+		endTime.set(year, month, day, endHour, endMinute); // set the end time
 		
-		Meeting setMeeting = new Meeting(startTime, endTime, description);
+		Meeting setMeeting = new Meeting(startTime, endTime, description); // create a new meeting object
 		return setMeeting;
 	}
 
