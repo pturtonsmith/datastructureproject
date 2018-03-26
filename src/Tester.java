@@ -10,7 +10,7 @@ import java.util.LinkedList;
 public class Tester {
 
 	/**
-	 * Main method
+	 * Main method. Runs the automated tests
 	 * @param args
 	 */
 	public static void main(String[] args) {

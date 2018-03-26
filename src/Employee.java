@@ -6,7 +6,7 @@ import java.util.Stack;
 
 /**
  * 
- * Employee class.
+ * Employee class. Contains methods to print, delete from, and edit the diary, undo, save employees, search meetings, and get and set name and diary.
  * @author Patrick Turton-Smith for Group 8 (Caoilainn McCrory, Joel Sieber, Lucas Cerha & Patrick Turton-Smith)
  * @version 1.0
  */

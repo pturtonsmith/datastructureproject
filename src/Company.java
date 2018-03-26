@@ -36,11 +36,11 @@ public class Company {
 	 */
 	public void addEmployee(String new_name) {
 		
-		if (this.employees.containsKey(new_name)) {
-			System.out.println("There is already an employees with this name, and cannot be added to the company.");
-			System.out.println("You'll just have to sack them.");
+		if (this.employees.containsKey(new_name)) { // if an employee with the same name is found,
+			System.out.println("There is already an employees with this name, and cannot be added to the company."); // let the user know the employee cannot be added
+			System.out.println("You'll just have to sack them."); // this bit's a joke
 		} 
-		else {
+		else { // otherwise, add the employee to the company
 			this.employees.put(new_name, new Employee(new_name));
 		}
 		
@@ -53,8 +53,8 @@ public class Company {
 	 */
 	public Employee deleteEmployee(String criteria) {
 
-		Employee toBeDeleted = this.employees.remove(criteria);
-		return toBeDeleted;
+		Employee toBeDeleted = this.employees.remove(criteria); // find and remove the chosen employee from the company
+		return toBeDeleted; // return the employee that has been removed (null will be returned if no such employee exists)
 		
 	}
 
@@ -65,8 +65,8 @@ public class Company {
 	 */
 	public Employee searchEmployee(String criteria) {
 		
-		Employee found = this.employees.get(criteria);
-		return found;
+		Employee found = this.employees.get(criteria); // search for the employee
+		return found; // return the details of the requested employee (this will be null if no such employee exists)
 		
 	}
 
@@ -294,11 +294,11 @@ public class Company {
 		} catch (IOException e) {
 			System.out.println("There was an error opening your file.");
 		} finally {
-			if (bufferedReader != null) {
+			if (printWriter != null) { // if the printWriter is not empty then
 				try {
-					bufferedReader.close();
+					printWriter.close(); // close it
 				} catch (IOException e) {
-					System.out.println("There was an error");
+					System.out.println("There was an error"); // if there's an IOException error then let them know
 				}
 			}
 		}
