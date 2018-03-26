@@ -16,6 +16,7 @@ public class Diary {
 	
 	/**
 	 * Default constructor. Initialises fields to default values
+	 *
 	 */
 	public Diary() {
 		this.diary = new TreeMap <Calendar, Meeting>();
