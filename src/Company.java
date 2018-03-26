@@ -223,7 +223,8 @@ public class Company {
 	
 	/**
 	* adds a group meeting
-	* @param names, groupMeeting
+	* @param names The names of employees taking part in the meeting
+	* @param groupMeeting Group Meeting that is being added
 	*/
 	public void addGroupMeeting(String[] names, Meeting groupMeeting) {
 		for (int num_employees = 0; num_employees < names.length; num_employees++) {
@@ -234,7 +235,7 @@ public class Company {
 
 	/**
 	 * Method to save all the data about every meeting and every employee in the company to a file. 
-	 * @param input
+	 * @param input The input from the user
 	 */
 	public void saveFile(String input) {
 		FileOutputStream outputStream = null;
@@ -273,7 +274,7 @@ public class Company {
 
 	/**
 	 * Method to read in all the company's data from a file
-	 * @param input
+	 * @param input The input from the user
 	 */
 	public void openFile(String input) {
 		FileReader filePath = null;
