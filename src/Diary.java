@@ -45,9 +45,10 @@ public class Diary {
 	 * @param endTime End time of meeting
 	 * @param description Description of meeting
 	 */
-	public void createMeeting(Calendar startTime, Calendar endTime, String description) {
+	public Meeting createMeeting(Calendar startTime, Calendar endTime, String description) {
 		Meeting meetingToAdd = new Meeting(startTime, endTime, description);
 		diary.put(startTime, meetingToAdd);
+		return meetingToAdd;
 	}
 	
 	/**
@@ -69,6 +70,14 @@ public class Diary {
 		}
 		
 		return found;
+	}
+	
+	public void addMeeting(Meeting meetingToAdd) {
+		this.diary.put(meetingToAdd.getStartTime(), meetingToAdd);
+	}
+	
+	public Meeting deleteMeeting(Calendar criteria) {
+		return diary.remove(criteria);
 	}
 	
 	/**

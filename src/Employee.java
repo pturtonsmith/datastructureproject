@@ -2,6 +2,7 @@ import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.Iterator;
+import java.util.Stack;
 
 /**
  * 
@@ -14,6 +15,8 @@ public class Employee {
 	
 	/** Private field String name of employee */ private String name;
 	/** Private field Diary diary of meetings */ private Diary diary;
+	Stack<Meeting> newStack;
+	Stack<Integer> newStack2;
 
 	/**
 	 * Default constructor for objects of Diary class
@@ -22,6 +25,8 @@ public class Employee {
 	public Employee(String new_name) {
 		this.name = new_name;
 		this.diary = new Diary();
+		newStack = new Stack();
+		newStack2 = new Stack();
 	}
 	
 //	/**
@@ -52,10 +57,11 @@ public class Employee {
 	}
 	
 	/**
-	 * Method to add to diary
+	 * Method to add meeting to diary
 	 * @param start Start time of meeting
 	 * @param end End time of meeting
 	 * @param description Description of meeting
+	 * @return Reference to meeting created
 	 */
 	public void addToDiary(String start, String end, String description) {
 				long startLong = Long.parseLong(start);
@@ -64,8 +70,39 @@ public class Employee {
 				long endLong = Long.parseLong(end);
 				Calendar endTime = Calendar.getInstance();
 				endTime.setTimeInMillis(endLong); 
-				this.diary.createMeeting(startTime, endTime, description);
-			}
+				Meeting newMeeting = this.diary.createMeeting(startTime, endTime, description);
+				newStack.push(newMeeting);
+				newStack2.push(1);
+	}
+	
+	public void deleteFromDiary(Calendar criteria) {
+		Meeting meetingDeleted = this.diary.deleteMeeting(criteria);
+		newStack2.push(2);
+		newStack.push(meetingDeleted);
+	}
+	
+	public void undoAdd() {
+		Meeting meetingToDelete = newStack.pop();
+		this.diary.deleteMeeting(meetingToDelete.getStartTime());
+	}
+	
+	public void undoDelete() {
+		Meeting meetingToAdd = newStack.pop();
+		this.diary.addMeeting(meetingToAdd);
+	}
+	
+	public void undo() {
+		int stackNumber = newStack2.pop();
+		
+		switch(stackNumber) {
+			case 1:
+				undoAdd();
+				break;
+			case 2:
+				undoDelete();
+				break;
+		}
+	}
 	
 	/**
 	 * 
