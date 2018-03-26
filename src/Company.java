@@ -294,11 +294,11 @@ public class Company {
 		} catch (IOException e) {
 			System.out.println("There was an error opening your file.");
 		} finally {
-			if (bufferedReader != null) {
+			if (printWriter != null) { // if the printWriter is not empty then
 				try {
-					bufferedReader.close();
+					printWriter.close(); // close it
 				} catch (IOException e) {
-					System.out.println("There was an error");
+					System.out.println("There was an error"); // if there's an IOException error then let them know
 				}
 			}
 		}
